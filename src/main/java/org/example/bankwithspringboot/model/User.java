@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -28,5 +30,12 @@ public class User {
     @Column(nullable = false,unique = true)
     private String email;
 
-    private String timeStamp = java.time.LocalDateTime.now().toString();
+    @Column(name = "time_stamp")
+    private String timeStamp;
+
+    @PrePersist
+    @PreUpdate
+    protected void onUpdate(){
+        this.timeStamp = LocalDateTime.now().toString();
+    }
 }

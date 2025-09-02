@@ -18,6 +18,7 @@ public class UserService {
     }
 
     public User registeruser(User user){
+        user.setId(null);
         return repository.save(user);
     }
 
