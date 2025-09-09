@@ -17,18 +17,35 @@ public class UserService {
         this.repository = repository;
     }
 
-    public User registeruser(User user){
+    public User registeruser(User user) {
         user.setId(null);
         return repository.save(user);
     }
 
-    public Optional<User> loginUser(String email, String password){
+    public Optional<User> loginUser(String email, String password) {
         Optional<User> user = repository.findByEmail(email);
 
-        if (user.isPresent() && user.get().getPassword().equals(password)){
+        if (user.isPresent() && user.get().getPassword().equals(password)) {
             return user;
         }
         return Optional.empty();
     }
 
+    public Optional<User> UpdateUsername(String username, String newUsername) {
+        return repository.findByUsername(username)
+                .map(user -> {
+                    user.setUsername(newUsername);
+                    return repository.save(user);
+                });
+    }
+
+    public Optional<User> UpdateEmail(String newEmail, String username) {
+        return repository
+                .findByUsername(username)
+                .map(var ->
+                {
+                    var.setEmail(newEmail);
+                    return repository.save(var);
+                });
+    }
 }

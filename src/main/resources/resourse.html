@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--secondary-color) !important;
+        }
+
+        .bank-card {
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            background: white;
+            overflow: hidden;
+        }
+
+        .bank-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .bank-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+        }
+
+        .btn-bank {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-bank:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .account-balance {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .transaction-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .transaction-item {
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+
+        .transaction-deposit {
+            border-left-color: #2ecc71;
+        }
+
+        .transaction-withdraw {
+            border-left-color: #e74c3c;
+        }
+
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .auth-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .api-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .dashboard-section {
+            margin-bottom: 30px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-university me-2"></i>SpringBank
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" id="navHome">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="navDashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="navTransactions">Transactions</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center">
+                <span class="text-light me-3">API Status:</span>
+                <span id="apiStatus" class="api-status bg-secondary text-light">Checking...</span>
+                <button id="logoutBtn" class="btn btn-outline-light btn-sm ms-3 hidden">
+                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Auth Section (Login/Register) -->
+<div id="authSection" class="auth-container">
+    <div class="auth-form">
+        <h2 class="text-center mb-4">Welcome to SpringBank</h2>
+        <ul class="nav nav-pills nav-justified mb-4" id="authTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="login-tab" data-bs-toggle="pill" data-bs-target="#login" type="button" role="tab">Login</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="register-tab" data-bs-toggle="pill" data-bs-target="#register" type="button" role="tab">Register</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="authTabsContent">
+            <div class="tab-pane fade show active" id="login" role="tabpanel">
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="loginEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-bank w-100">Login</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="register" role="tabpanel">
+                <form id="registerForm">
+                    <div class="mb-3">
+                        <label for="registerName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="registerName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="registerEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="registerPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="registerPassword" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="initialDeposit" class="form-label">Initial Deposit ($)</label>
+                        <input type="number" class="form-control" id="initialDeposit" value="100" min="0">
+                    </div>
+                    <button type="submit" class="btn btn-bank w-100">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Application Section -->
+<div id="appSection" class="container py-4 hidden">
+    <!-- Dashboard -->
+    <div id="dashboardSection">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="bank-card dashboard-section">
+                    <div class="bank-header">
+                        <h3><i class="fas fa-wallet me-2"></i>Account Overview</h3>
+                    </div>
+                    <div class="p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <h5>Welcome, <span id="userName">User</span></h5>
+                                <p class="text-muted" id="userEmail">user@example.com</p>
+                            </div>
+                            <div class="text-end">
+                                <p class="mb-0">Account Balance</p>
+                                <div class="account-balance" id="accountBalance">$0.00</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="bank-card p-3 text-center">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                    </div>
+                                    <h5>Deposit</h5>
+                                    <p>Add funds to your account</p>
+                                    <button class="btn btn-bank" data-bs-toggle="modal" data-bs-target="#depositModal">Deposit Money</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="bank-card p-3 text-center">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-hand-holding-usd"></i>
+                                    </div>
+                                    <h5>Withdraw</h5>
+                                    <p>Withdraw funds from your account</p>
+                                    <button class="btn btn-bank" data-bs-toggle="modal" data-bs-target="#withdrawModal">Withdraw Money</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="bank-card dashboard-section">
+                    <div class="bank-header">
+                        <h3><i class="fas fa-history me-2"></i>Recent Transactions</h3>
+                    </div>
+                    <div class="p-4">
+                        <div class="transaction-list" id="transactionList">
+                            <p class="text-center">No transactions yet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Management Section -->
+    <div id="accountSection" class="hidden">
+        <div class="bank-card dashboard-section">
+            <div class="bank-header">
+                <h3><i class="fas fa-user-circle me-2"></i>Account Management</h3>
+            </div>
+            <div class="p-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Account Details</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <label for="accountUsername"></label><input type="text" class="form-control" id="accountUsername" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <label for="accountEmail"></label><input type="email" class="form-control" id="accountEmail" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Balance</label>
+                            <label for="accountBalanceView"></label><input type="text" class="form-control" id="accountBalanceView" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Transfer Funds</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Recipient Username</label>
+                            <label for="transferRecipient"></label><input type="text" class="form-control" id="transferRecipient">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Amount</label>
+                            <label for="transferAmount"></label><input type="number" class="form-control" id="transferAmount" min="1">
+                        </div>
+                        <button class="btn btn-bank" id="transferBtn">Transfer Money</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Deposit Modal -->
+<div class="modal fade" id="depositModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Deposit Money</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="depositAmount" class="form-label">Amount</label>
+                    <input type="number" class="form-control" id="depositAmount" min="1" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-bank" id="confirmDeposit">Deposit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Withdraw Modal -->
+<div class="modal fade" id="withdrawModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Withdraw Money</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="withdrawAmount" class="form-label">Amount</label>
+                    <input type="number" class="form-control" id="withdrawAmount" min="1" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-bank" id="confirmWithdraw">Withdraw</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-light text-center py-4 mt-4">
+    <div class="container">
+        <p class="mb-0">© 2023 SpringBank Application. Built for Spring Boot integration.</p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Base URL for your Spring Boot API
+    const API_BASE_URL = 'http://localhost:8080/api';
+
+    // Global state
+    let currentUser = null;
+    let currentAccount = null;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check API status on load
+        checkApiStatus();
+
+        // Setup event listeners
+        setupEventListeners();
+
+        // Check if user is already logged in (from localStorage)
+        checkLoggedInStatus();
+    });
+
+    function setupEventListeners() {
+        // Auth forms
+        document.getElementById('loginForm').addEventListener('submit', handleLogin);
+        document.getElementById('registerForm').addEventListener('submit', handleRegister);
+
+        // Navigation
+        document.getElementById('navHome').addEventListener('click', () => showSection('dashboardSection'));
+        document.getElementById('navDashboard').addEventListener('click', () => showSection('dashboardSection'));
+        document.getElementById('navTransactions').addEventListener('click', () => showSection('accountSection'));
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+        // Transactions
+        document.getElementById('confirmDeposit').addEventListener('click', handleDeposit);
+        document.getElementById('confirmWithdraw').addEventListener('click', handleWithdraw);
+        document.getElementById('transferBtn').addEventListener('click', handleTransfer);
+    }
+
+    function checkApiStatus() {
+        // Simple request to check if API is available
+        fetch(`${API_BASE_URL}/users/accounts/`)
+            .then(response => {
+                const statusElement = document.getElementById('apiStatus');
+                if (response.ok) {
+                    statusElement.className = 'api-status bg-success text-light';
+                    statusElement.textContent = 'Connected';
+                } else {
+                    statusElement.className = 'api-status bg-warning text-dark';
+                    statusElement.textContent = 'Partial connection';
+                }
+            })
+            .catch(error => {
+                const statusElement = document.getElementById('apiStatus');
+                statusElement.className = 'api-status bg-danger text-light';
+                statusElement.textContent = 'Disconnected';
+            });
+    }
+
+    function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        fetch(`${API_BASE_URL}/users/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Login failed');
+                }
+            })
+            .then(message => {
+                alert(message);
+                // On successful login, get the user account
+                currentUser = { email };
+                loadAccountData();
+                showApp();
+            })
+            .catch(error => {
+                alert('Login failed. Please check your credentials.');
+                console.error('Error:', error);
+            });
+    }
+
+    function handleRegister(e) {
+        e.preventDefault();
+        const name = document.getElementById('registerName').value;
+        const email = document.getElementById('registerEmail').value;
+        const password = document.getElementById('registerPassword').value;
+        const balance = parseFloat(document.getElementById('initialDeposit').value);
+
+        // First register the user
+        fetch(`${API_BASE_URL}/users/users/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, password })
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('User registration failed');
+                }
+            })
+            .then(user => {
+                // Then create an account for the user
+                return fetch(`${API_BASE_URL}/users/accounts/create`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: email, // Using email as username for simplicity
+                        balance: balance
+                    })
+                });
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Account creation failed');
+                }
+            })
+            .then(account => {
+                alert('Registration successful! You can now login.');
+                // Switch to login tab
+                document.getElementById('login-tab').click();
+                // Pre-fill login form
+                document.getElementById('loginEmail').value = email;
+                document.getElementById('loginPassword').value = password;
+            })
+            .catch(error => {
+                alert('Registration failed. Please try again.');
+                console.error('Error:', error);
+            });
+    }
+
+    function loadAccountData() {
+        if (!currentUser) return;
+
+        // Get account by username (email in this case)
+        fetch(`${API_BASE_URL}/users/accounts/${currentUser.email}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to load account data');
+                }
+            })
+            .then(account => {
+                currentAccount = account;
+                updateUIWithAccountData(account);
+            })
+            .catch(error => {
+                console.error('Error loading account:', error);
+            });
+    }
+
+    function updateUIWithAccountData(account) {
+        // Update dashboard
+        document.getElementById('userName').textContent = account.username;
+        document.getElementById('userEmail').textContent = account.username; // Using username as email
+        document.getElementById('accountBalance').textContent = `$${account.balance.toFixed(2)}`;
+
+        // Update account management section
+        document.getElementById('accountUsername').value = account.username;
+        document.getElementById('accountEmail').value = account.username;
+        document.getElementById('accountBalanceView').value = `$${account.balance.toFixed(2)}`;
+
+        // Load transactions (you would need to implement this endpoint)
+        // loadTransactions(account.id);
+    }
+
+    function handleDeposit() {
+        const amount = parseFloat(document.getElementById('depositAmount').value);
+        if (!amount || amount <= 0) {
+            alert('Please enter a valid amount');
+            return;
+        }
+
+        fetch(`${API_BASE_URL}/users/accounts/${currentAccount.username}/deposit`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ balance: amount })
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Deposit failed');
+                }
+            })
+            .then(updatedAccount => {
+                currentAccount = updatedAccount;
+                updateUIWithAccountData(updatedAccount);
+                alert('Deposit successful!');
+                // Close modal
+                bootstrap.Modal.getInstance(document.getElementById('depositModal')).hide();
+            })
+            .catch(error => {
+                alert('Deposit failed. Please try again.');
+                console.error('Error:', error);
+            });
+    }
+
+    function handleWithdraw() {
+        const amount = parseFloat(document.getElementById('withdrawAmount').value);
+        if (!amount || amount <= 0) {
+            alert('Please enter a valid amount');
+            return;
+        }
+
+        if (amount > currentAccount.balance) {
+            alert('Insufficient funds');
+            return;
+        }
+
+        // For withdrawal, we'll use a negative amount in deposit endpoint
+        // You might want to create a separate withdrawal endpoint
+        fetch(`${API_BASE_URL}/users/accounts/${currentAccount.username}/deposit`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ balance: -amount })
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Withdrawal failed');
+                }
+            })
+            .then(updatedAccount => {
+                currentAccount = updatedAccount;
+                updateUIWithAccountData(updatedAccount);
+                alert('Withdrawal successful!');
+                // Close modal
+                bootstrap.Modal.getInstance(document.getElementById('withdrawModal')).hide();
+            })
+            .catch(error => {
+                alert('Withdrawal failed. Please try again.');
+                console.error('Error:', error);
+            });
+    }
+
+    function handleTransfer() {
+        // This is a placeholder - you would need to implement transfer functionality in your backend
+        alert('Transfer functionality would be implemented here with your backend API');
+    }
+
+    function handleLogout() {
+        currentUser = null;
+        currentAccount = null;
+        showAuth();
+    }
+
+    function checkLoggedInStatus() {
+        // Check if user data exists in localStorage
+        const userData = localStorage.getItem('bankUser');
+        if (userData) {
+            currentUser = JSON.parse(userData);
+            loadAccountData();
+            showApp();
+        }
+    }
+
+    function showApp() {
+        document.getElementById('authSection').classList.add('hidden');
+        document.getElementById('appSection').classList.remove('hidden');
+        document.getElementById('logoutBtn').classList.remove('hidden');
+        showSection('dashboardSection');
+    }
+
+    function showAuth() {
+        document.getElementById('authSection').classList.remove('hidden');
+        document.getElementById('appSection').classList.add('hidden');
+        document.getElementById('logoutBtn').classList.add('hidden');
+    }
+
+    function showSection(sectionId) {
+        // Hide all sections
+        document.getElementById('dashboardSection').classList.add('hidden');
+        document.getElementById('accountSection').classList.add('hidden');
+
+        // Show the requested section
+        document.getElementById(sectionId).classList.remove('hidden');
+    }
+</script>
+</body>
+</html>

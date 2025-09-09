@@ -1,9 +1,11 @@
 package org.example.bankwithspringboot.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -27,15 +29,17 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "time_stamp")
-    private String timeStamp;
+    @Column(updatable = false)
+    @CreationTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy, hh:mm:ss a", timezone = "Asia/Kolkata")
+    private LocalDateTime timeStamp;
 
     @PrePersist
     @PreUpdate
-    protected void onUpdate(){
-        this.timeStamp = LocalDateTime.now().toString();
+    protected void onUpdate() {
+        this.timeStamp = LocalDateTime.now();
     }
 }
