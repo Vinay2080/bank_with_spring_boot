@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users/accounts")
+@RequestMapping("/api/accounts")
 
 public class AccountController {
     private final AccountService accountService;
@@ -17,10 +17,10 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Account> createAccount(@RequestBody Account account) {
-        Account accountCreated = accountService.createAccount(account);
-        return ResponseEntity.ok(accountCreated);
+    @PostMapping("/create/{userId}")
+    public ResponseEntity<Account> createAccount(@RequestBody Account account, @PathVariable Long userId) {
+        Account accountCreated = accountService.createAccount(account, userId);
+        return ResponseEntity.ok(accountService.createAccount(account, userId));
     }
 
     @GetMapping()
@@ -28,29 +28,30 @@ public class AccountController {
         return ResponseEntity.ok(accountService.getAllAccounts());
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<Account> getAccountByUsername(@PathVariable String username) {
-        return accountService.findAccountByUsername(username)
+    @GetMapping("/{accountNumber}")
+    public ResponseEntity<Account> getAccountByAccountNumber(@PathVariable String accountNumber) {
+        return accountService.findAccountByAccountNumber(accountNumber)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity
                         .notFound()
                         .build());
     }
 
-    @PutMapping("/{username}/deposit")
-    public ResponseEntity<Account> depositMoney(@PathVariable String username, @RequestBody Account requestBody) {
-        Account accountUpdated = accountService.depositMoney(requestBody.getBalance(), username);
+    @PutMapping("/{accountNumber}/deposit")
+    public ResponseEntity<Account> depositMoney(@PathVariable String accountNumber, @RequestBody Account requestBody) {
+        Account accountUpdated = accountService.depositMoney(requestBody.getBalance(), accountNumber);
         return ResponseEntity.ok(accountUpdated);
     }
 
-    @DeleteMapping("/{username}")
-    public void removeAccount(@RequestBody Account account) {
-        accountService.removeAccount(account.getUsername());
-        ResponseEntity.ok("Account deleted successfully with username: " + account.getUsername());
+    @DeleteMapping("/{accountNumber}/delete")
+    public ResponseEntity<String> removeAccount(@PathVariable String accountNumber) {
+        accountService.removeAccount(accountNumber);
+        return ResponseEntity.ok("Account deleted successfully with accountNumber: " + accountNumber);
     }
-    @PutMapping("/{username}/credit")
-    public ResponseEntity<Account> creditMoney(@PathVariable String username, @RequestBody Account account) {
-        Account accountUpdated = accountService.creditMoney(username, account.getBalance());
+
+    @PutMapping("/{accountNumber}/credit")
+    public ResponseEntity<Account> creditMoney(@PathVariable String accountNumber, @RequestBody Account account) {
+        Account accountUpdated = accountService.creditMoney(accountNumber, account.getBalance());
         return ResponseEntity.ok(accountUpdated);
     }
 }

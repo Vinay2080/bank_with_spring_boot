@@ -19,6 +19,7 @@ public class UserService {
 
     public User registeruser(User user) {
         user.setId(null);
+        user.getAccounts().forEach(account -> account.setUser(user));
         return repository.save(user);
     }
 
@@ -45,6 +46,15 @@ public class UserService {
                 .map(var ->
                 {
                     var.setEmail(newEmail);
+                    return repository.save(var);
+                });
+    }
+
+    public Optional<User> updatePassword(String password, String username) {
+        return repository
+                .findByUsername(username)
+                .map(var ->{
+                    var.setPassword(password);
                     return repository.save(var);
                 });
     }
