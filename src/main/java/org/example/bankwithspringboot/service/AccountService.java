@@ -32,8 +32,6 @@ public class AccountService {
                 .orElseThrow(() -> new RuntimeException("User not found for id: " + userId));
         account.setId(null);
 
-        account.setId(null);
-
         if (account.getBalance() == null) {
             account.setBalance(0.0);
         }
@@ -58,11 +56,11 @@ public class AccountService {
     }
 
     @Transactional
-    public void removeAccount(String accountNumber) {
-        if (accountRepository.findAccountByAccountNumber(accountNumber).isEmpty()) {
-            throw new RuntimeException("Account not found for accountNumber: " + accountNumber);
-        }
-        accountRepository.deleteByAccountNumber(accountNumber);
+    public Optional<Account> removeAccount(String accountNumber) {
+        return accountRepository.findAccountByAccountNumber(accountNumber).map(userFound->{
+            accountRepository.deleteByAccountNumber(accountNumber);
+            return userFound;
+        });
     }
 
     public Account creditMoney(String accountNumber, Double amount) {

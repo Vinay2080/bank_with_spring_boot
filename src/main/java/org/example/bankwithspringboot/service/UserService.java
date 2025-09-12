@@ -1,5 +1,6 @@
 package org.example.bankwithspringboot.service;
 
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import org.example.bankwithspringboot.model.User;
 import org.example.bankwithspringboot.repository.UserRepository;
@@ -11,20 +12,20 @@ import java.util.Optional;
 @Getter
 public class UserService {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
 
-    public UserService(UserRepository repository) {
-        this.repository = repository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public User registeruser(User user) {
         user.setId(null);
         user.getAccounts().forEach(account -> account.setUser(user));
-        return repository.save(user);
+        return userRepository.save(user);
     }
 
     public Optional<User> loginUser(String email, String password) {
-        Optional<User> user = repository.findByEmail(email);
+        Optional<User> user = userRepository.findByEmail(email);
 
         if (user.isPresent() && user.get().getPassword().equals(password)) {
             return user;
@@ -33,29 +34,37 @@ public class UserService {
     }
 
     public Optional<User> UpdateUsername(String username, String newUsername) {
-        return repository.findByUsername(username)
+        return userRepository.findByUsername(username)
                 .map(user -> {
                     user.setUsername(newUsername);
-                    return repository.save(user);
+                    return userRepository.save(user);
                 });
     }
 
     public Optional<User> UpdateEmail(String newEmail, String username) {
-        return repository
+        return userRepository
                 .findByUsername(username)
                 .map(var ->
                 {
                     var.setEmail(newEmail);
-                    return repository.save(var);
+                    return userRepository.save(var);
                 });
     }
 
     public Optional<User> updatePassword(String password, String username) {
-        return repository
+        return userRepository
                 .findByUsername(username)
                 .map(var ->{
                     var.setPassword(password);
-                    return repository.save(var);
+                    return userRepository.save(var);
                 });
+    }
+
+    @Transactional
+    public Optional<User> deleteUserByUsername(User user) {
+        return userRepository.findByUsername(user.getUsername()).map(foundUser->{
+            userRepository.deleteByUsername(user.getUsername());
+            return foundUser;
+        });
     }
 }

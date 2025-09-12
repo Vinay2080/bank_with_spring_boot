@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -20,7 +21,7 @@ public class AccountController {
     @PostMapping("/create/{userId}")
     public ResponseEntity<Account> createAccount(@RequestBody Account account, @PathVariable Long userId) {
         Account accountCreated = accountService.createAccount(account, userId);
-        return ResponseEntity.ok(accountService.createAccount(account, userId));
+        return ResponseEntity.ok(accountCreated);
     }
 
     @GetMapping()
@@ -45,8 +46,9 @@ public class AccountController {
 
     @DeleteMapping("/{accountNumber}/delete")
     public ResponseEntity<String> removeAccount(@PathVariable String accountNumber) {
-        accountService.removeAccount(accountNumber);
-        return ResponseEntity.ok("Account deleted successfully with accountNumber: " + accountNumber);
+        Optional<Account> accountRemoved = accountService.removeAccount(accountNumber);
+        return accountRemoved
+                .map(account -> ResponseEntity.ok("account removed successfully: " + account.getAccountNumber())).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{accountNumber}/credit")

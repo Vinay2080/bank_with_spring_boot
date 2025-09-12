@@ -29,7 +29,7 @@ public class UserController {
     public ResponseEntity<String> loginUser(@RequestBody User user) {
         Optional<User> loggedInUser = service.loginUser(user.getEmail(), user.getPassword());
         return loggedInUser.map(value -> ResponseEntity.ok("Login successful! Welcome " + value.getName())).orElseGet(() -> ResponseEntity.status(401).body("Invalid email or password"));
-        }
+    }
 
     @PutMapping("/update/Username/{username}")
     public ResponseEntity<User> updateUsername(@PathVariable String username, @RequestBody String newUsername) {
@@ -54,7 +54,14 @@ public class UserController {
     public ResponseEntity<String> updatePassword(@PathVariable String password, @PathVariable String username) {
         Optional<User> updatedPassword = service.updatePassword(password, username);
         return updatedPassword
-                .map(user ->ResponseEntity.ok("password changed successfully."))
+                .map(_ -> ResponseEntity.ok("password changed successfully."))
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteUserByUsername(@RequestBody User user) {
+        Optional<User> userDeleted = service.deleteUserByUsername(user);
+        return userDeleted
+                .map(user1 ->ResponseEntity.ok("User deleted successfully: " + user1.getName() + "along with all its accounts:\n" + user1.getAccounts() + "\n")).orElseGet(()->ResponseEntity.notFound().build());
     }
 }

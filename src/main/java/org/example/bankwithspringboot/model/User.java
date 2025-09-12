@@ -1,5 +1,9 @@
 package org.example.bankwithspringboot.model;
 
+/* list of properties a user has:
+id, name, username, password, email, phone number, accounts, time stamp
+ */
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -48,7 +52,7 @@ public class User {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy, hh:mm:ss a", timezone = "Asia/Kolkata")
     private LocalDateTime updatedAt;
 
-    @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<Account> accounts = new ArrayList<>();
 }
