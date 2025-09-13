@@ -1,5 +1,7 @@
 package org.example.bankwithspringboot.model;
-
+/* account attributes
+id, account number, balance, account type, time stamp (created at and updated at), user
+ */
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;

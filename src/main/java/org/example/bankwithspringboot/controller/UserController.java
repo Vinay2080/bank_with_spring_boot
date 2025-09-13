@@ -19,6 +19,11 @@ public class UserController {
         this.service = service;
     }
 
+    // add get al users
+    //  by name
+    // login by phone number
+    // log in by email
+
     @PostMapping("/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         User savedUser = service.registeruser(user);
@@ -58,7 +63,7 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public ResponseEntity<String> deleteUserByUsername(@RequestBody User user) {
         Optional<User> userDeleted = service.deleteUserByUsername(user);
         return userDeleted

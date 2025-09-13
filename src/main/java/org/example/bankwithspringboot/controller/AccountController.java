@@ -1,5 +1,7 @@
 package org.example.bankwithspringboot.controller;
 
+import org.example.bankwithspringboot.dto.request.AccountRequest;
+import org.example.bankwithspringboot.dto.response.AccountResponse;
 import org.example.bankwithspringboot.model.Account;
 import org.example.bankwithspringboot.service.AccountService;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -18,10 +21,15 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping("/create/{userId}")
-    public ResponseEntity<Account> createAccount(@RequestBody Account account, @PathVariable Long userId) {
-        Account accountCreated = accountService.createAccount(account, userId);
-        return ResponseEntity.ok(accountCreated);
+    @PostMapping("/create")
+    public ResponseEntity<AccountResponse> createAccount(@RequestBody AccountRequest request) {
+        Account accountCreated = accountService.createAccount(request);
+
+        AccountResponse response = new AccountResponse();
+        response.setAccountNumber(accountCreated.getAccountNumber());
+        response.setBalance(accountCreated.getBalance());
+        response.setAccountType(accountCreated.getAccountType());
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping()
@@ -44,6 +52,12 @@ public class AccountController {
         return ResponseEntity.ok(accountUpdated);
     }
 
+    @PutMapping("/{accountNumber}/credit")
+    public ResponseEntity<Account> creditMoney(@PathVariable String accountNumber, @RequestBody Account account) {
+        Account accountUpdated = accountService.creditMoney(accountNumber, account.getBalance());
+        return ResponseEntity.ok(accountUpdated);
+    }
+
     @DeleteMapping("/{accountNumber}/delete")
     public ResponseEntity<String> removeAccount(@PathVariable String accountNumber) {
         Optional<Account> accountRemoved = accountService.removeAccount(accountNumber);
@@ -51,9 +65,4 @@ public class AccountController {
                 .map(account -> ResponseEntity.ok("account removed successfully: " + account.getAccountNumber())).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{accountNumber}/credit")
-    public ResponseEntity<Account> creditMoney(@PathVariable String accountNumber, @RequestBody Account account) {
-        Account accountUpdated = accountService.creditMoney(accountNumber, account.getBalance());
-        return ResponseEntity.ok(accountUpdated);
-    }
 }
