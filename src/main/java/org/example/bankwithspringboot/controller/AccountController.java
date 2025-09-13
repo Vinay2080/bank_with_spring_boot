@@ -1,6 +1,7 @@
 package org.example.bankwithspringboot.controller;
 
 import org.example.bankwithspringboot.dto.request.AccountRequest;
+import org.example.bankwithspringboot.dto.request.Transaction;
 import org.example.bankwithspringboot.dto.response.AccountResponse;
 import org.example.bankwithspringboot.model.Account;
 import org.example.bankwithspringboot.service.AccountService;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -32,13 +32,13 @@ public class AccountController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping()
-    public ResponseEntity<List<Account>> getAllAccounts() {
+    @GetMapping("/get/all_accounts")
+    public ResponseEntity<List<AccountResponse>> getAllAccounts() {
         return ResponseEntity.ok(accountService.getAllAccounts());
     }
 
-    @GetMapping("/{accountNumber}")
-    public ResponseEntity<Account> getAccountByAccountNumber(@PathVariable String accountNumber) {
+    @GetMapping("/get/by_account_number/{accountNumber}")
+    public ResponseEntity<AccountResponse> getAccountByAccountNumber(@PathVariable String accountNumber) {
         return accountService.findAccountByAccountNumber(accountNumber)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity
@@ -46,21 +46,21 @@ public class AccountController {
                         .build());
     }
 
-    @PutMapping("/{accountNumber}/deposit")
-    public ResponseEntity<Account> depositMoney(@PathVariable String accountNumber, @RequestBody Account requestBody) {
-        Account accountUpdated = accountService.depositMoney(requestBody.getBalance(), accountNumber);
+    @PutMapping("/deposit")
+    public ResponseEntity<AccountResponse> depositMoney(@RequestBody Transaction transaction) {
+        AccountResponse accountUpdated = accountService.depositMoney(transaction);
         return ResponseEntity.ok(accountUpdated);
     }
 
-    @PutMapping("/{accountNumber}/credit")
-    public ResponseEntity<Account> creditMoney(@PathVariable String accountNumber, @RequestBody Account account) {
-        Account accountUpdated = accountService.creditMoney(accountNumber, account.getBalance());
+    @PutMapping("/credit")
+    public ResponseEntity<AccountResponse> creditMoney(@RequestBody Transaction transaction) {
+        AccountResponse accountUpdated = accountService.creditMoney(transaction);
         return ResponseEntity.ok(accountUpdated);
     }
 
-    @DeleteMapping("/{accountNumber}/delete")
+    @DeleteMapping("/delete/{accountNumber}")
     public ResponseEntity<String> removeAccount(@PathVariable String accountNumber) {
-        Optional<Account> accountRemoved = accountService.removeAccount(accountNumber);
+        Optional<AccountResponse> accountRemoved = accountService.removeAccount(accountNumber);
         return accountRemoved
                 .map(account -> ResponseEntity.ok("account removed successfully: " + account.getAccountNumber())).orElseGet(() -> ResponseEntity.notFound().build());
     }

@@ -2,6 +2,8 @@ package org.example.bankwithspringboot.service;
 
 import jakarta.transaction.Transactional;
 import org.example.bankwithspringboot.dto.request.AccountRequest;
+import org.example.bankwithspringboot.dto.request.Transaction;
+import org.example.bankwithspringboot.dto.response.AccountResponse;
 import org.example.bankwithspringboot.model.Account;
 import org.example.bankwithspringboot.repository.AccountRepository;
 import org.example.bankwithspringboot.repository.UserRepository;
@@ -26,7 +28,7 @@ public class AccountService {
 
         var user = userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found for id: " + request.getUserId()));
-//        account.setId(null);
+
         String accountNumber = generateAccountNumber();
 
         if (accountRepository.findAccountByAccountNumber(accountNumber).isPresent()) {
@@ -40,47 +42,60 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
+    public List<AccountResponse> getAllAccounts() {
+        AccountResponse response = new AccountResponse();
+        return accountRepository.findAll().stream()
+
+                .map(account ->
+                {
+                    response.setAccountNumber(account.getAccountNumber());
+                    response.setAccountType(account.getAccountType());
+                    response.setBalance(account.getBalance());
+                    return response;
+                }).toList();
     }
 
-    public Optional<Account> findAccountByAccountNumber(String accountNumber) {
-        return accountRepository.findAccountByAccountNumber(accountNumber);
+    public Optional<AccountResponse> findAccountByAccountNumber(String accountNumber) {
+        Optional<Account> found = accountRepository.findAccountByAccountNumber(accountNumber);
+        return found.map(account -> new AccountResponse(account.getAccountNumber(), account.getBalance(), account.getAccountType()));
     }
 
-    public Account depositMoney(Double amount, String accountNumber) {
-        if (amount <= 0) {
+    public AccountResponse depositMoney(Transaction transaction) {
+        if (transaction.getAmount() <= 0) {
             throw new IllegalArgumentException("deposit money must be positive");
         }
 
-        Account account = accountRepository.findAccountByAccountNumber(accountNumber).orElseThrow(() -> new RuntimeException("Account not found for accountNumber: " + accountNumber));
+        Account account = accountRepository.findAccountByAccountNumber(transaction.getAccountNumber()).orElseThrow(() -> new RuntimeException("Account not found for accountNumber: " + transaction.getAccountNumber()));
 
-        account.setBalance(account.getBalance() + amount);
-        return accountRepository.save(account);
+        account.setBalance(account.getBalance() - transaction.getAmount());
+        Account saved =  accountRepository.save(account);
+        return new AccountResponse(saved.getAccountNumber(), saved.getBalance(), saved.getAccountType());
     }
 
-    public Account creditMoney(String accountNumber, Double amount) {
-        if (amount <= 0) {
+    public AccountResponse creditMoney(Transaction transaction) {
+        if (transaction.getAmount() <= 0) {
             throw new IllegalArgumentException("credit amount must be positive");
         }
 
+        Account account = accountRepository.findAccountByAccountNumber(transaction.getAccountNumber()).orElseThrow(() -> new RuntimeException("Account not found for accountNumber: " + transaction.getAccountNumber()));
 
-        Account account = accountRepository.findAccountByAccountNumber(accountNumber).orElseThrow(() -> new RuntimeException("Account not found for accountNumber: " + accountNumber));
-
-        if (account.getBalance() < amount) {
-            throw new RuntimeException("Insufficient balance for accountNumber: " + accountNumber);
+        if (account.getBalance() < transaction.getAmount()) {
+            throw new RuntimeException("Insufficient balance for accountNumber: " + transaction.getAccountNumber());
         }
 
-        account.setBalance(account.getBalance() - amount);
-        return accountRepository.save(account);
+        account.setBalance(account.getBalance() + transaction.getAmount());
+        Account saved = accountRepository.save(account);
+
+        return new AccountResponse(saved.getAccountNumber(), saved.getBalance(),saved.getAccountType());
     }
 
     @Transactional
-    public Optional<Account> removeAccount(String accountNumber) {
-        return accountRepository.findAccountByAccountNumber(accountNumber).map(userFound -> {
+    public Optional<AccountResponse> removeAccount(String accountNumber) {
+        Optional<Account> removed = accountRepository.findAccountByAccountNumber(accountNumber).map(userFound -> {
             accountRepository.deleteByAccountNumber(accountNumber);
             return userFound;
         });
+        return removed.map(account -> new AccountResponse(account.getAccountNumber(), account.getBalance(), account.getAccountType()));
     }
 
     // helper methods

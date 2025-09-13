@@ -1,15 +1,15 @@
 package org.example.bankwithspringboot.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class AccountRequest {
-    private Double initialBalance;
-    private Long userId;
-    private String accountType;
+public class Transaction {
+    private String accountNumber;
+    private Double amount;
 }
