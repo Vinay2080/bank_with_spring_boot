@@ -2,8 +2,10 @@ package org.example.bankwithspringboot.service;
 
 import jakarta.transaction.Transactional;
 import org.example.bankwithspringboot.dto.request.AccountRequest;
-import org.example.bankwithspringboot.dto.request.Transaction;
+import org.example.bankwithspringboot.dto.request.AccountTransaction;
 import org.example.bankwithspringboot.dto.response.AccountResponse;
+import org.example.bankwithspringboot.exception.ResourceAlreadyExistsException;
+import org.example.bankwithspringboot.exception.ResourceNotFoundException;
 import org.example.bankwithspringboot.model.Account;
 import org.example.bankwithspringboot.repository.AccountRepository;
 import org.example.bankwithspringboot.repository.UserRepository;
@@ -27,12 +29,12 @@ public class AccountService {
     public Account createAccount(AccountRequest request) {
 
         var user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found for id: " + request.getUserId()));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found for id: " + request.getUserId()));
 
         String accountNumber = generateAccountNumber();
 
         if (accountRepository.findAccountByAccountNumber(accountNumber).isPresent()) {
-            throw new RuntimeException("Account is already present " + accountNumber);
+            throw new ResourceAlreadyExistsException("Account is already present " + accountNumber);
         }
         Account account = new Account();
         account.setAccountNumber(accountNumber);
@@ -43,16 +45,19 @@ public class AccountService {
     }
 
     public List<AccountResponse> getAllAccounts() {
-        AccountResponse response = new AccountResponse();
-        return accountRepository.findAll().stream()
 
-                .map(account ->
-                {
-                    response.setAccountNumber(account.getAccountNumber());
-                    response.setAccountType(account.getAccountType());
-                    response.setBalance(account.getBalance());
-                    return response;
-                }).toList();
+        List<Account> accounts = accountRepository.findAll();
+
+        if (accounts.isEmpty()) {
+            throw new ResourceNotFoundException("no accounts found");
+        }
+        return accountRepository.findAll()
+                .stream()
+                .map(account -> new AccountResponse(
+                        account.getAccountNumber(),
+                        account.getBalance(),
+                        account.getAccountType()))
+                .toList();
     }
 
     public Optional<AccountResponse> findAccountByAccountNumber(String accountNumber) {
@@ -60,33 +65,33 @@ public class AccountService {
         return found.map(account -> new AccountResponse(account.getAccountNumber(), account.getBalance(), account.getAccountType()));
     }
 
-    public AccountResponse depositMoney(Transaction transaction) {
-        if (transaction.getAmount() <= 0) {
+    public AccountResponse depositMoney(AccountTransaction accountTransaction) {
+        if (accountTransaction.getAmount() <= 0) {
             throw new IllegalArgumentException("deposit money must be positive");
         }
 
-        Account account = accountRepository.findAccountByAccountNumber(transaction.getAccountNumber()).orElseThrow(() -> new RuntimeException("Account not found for accountNumber: " + transaction.getAccountNumber()));
+        Account account = accountRepository.findAccountByAccountNumber(accountTransaction.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("Account not found for accountNumber: " + accountTransaction.getAccountNumber()));
 
-        account.setBalance(account.getBalance() - transaction.getAmount());
-        Account saved =  accountRepository.save(account);
+        account.setBalance(account.getBalance() - accountTransaction.getAmount());
+        Account saved = accountRepository.save(account);
         return new AccountResponse(saved.getAccountNumber(), saved.getBalance(), saved.getAccountType());
     }
 
-    public AccountResponse creditMoney(Transaction transaction) {
-        if (transaction.getAmount() <= 0) {
+    public AccountResponse creditMoney(AccountTransaction accountTransaction) {
+        if (accountTransaction.getAmount() <= 0) {
             throw new IllegalArgumentException("credit amount must be positive");
         }
 
-        Account account = accountRepository.findAccountByAccountNumber(transaction.getAccountNumber()).orElseThrow(() -> new RuntimeException("Account not found for accountNumber: " + transaction.getAccountNumber()));
+        Account account = accountRepository.findAccountByAccountNumber(accountTransaction.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("Account not found for accountNumber: " + accountTransaction.getAccountNumber()));
 
-        if (account.getBalance() < transaction.getAmount()) {
-            throw new RuntimeException("Insufficient balance for accountNumber: " + transaction.getAccountNumber());
+        if (account.getBalance() < accountTransaction.getAmount()) {
+            throw new IllegalArgumentException("Insufficient balance for accountNumber: " + accountTransaction.getAccountNumber());
         }
 
-        account.setBalance(account.getBalance() + transaction.getAmount());
+        account.setBalance(account.getBalance() + accountTransaction.getAmount());
         Account saved = accountRepository.save(account);
 
-        return new AccountResponse(saved.getAccountNumber(), saved.getBalance(),saved.getAccountType());
+        return new AccountResponse(saved.getAccountNumber(), saved.getBalance(), saved.getAccountType());
     }
 
     @Transactional

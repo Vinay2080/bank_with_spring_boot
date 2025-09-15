@@ -1,7 +1,7 @@
 package org.example.bankwithspringboot.controller;
 
 import org.example.bankwithspringboot.dto.request.AccountRequest;
-import org.example.bankwithspringboot.dto.request.Transaction;
+import org.example.bankwithspringboot.dto.request.AccountTransaction;
 import org.example.bankwithspringboot.dto.response.AccountResponse;
 import org.example.bankwithspringboot.model.Account;
 import org.example.bankwithspringboot.service.AccountService;
@@ -47,14 +47,14 @@ public class AccountController {
     }
 
     @PutMapping("/deposit")
-    public ResponseEntity<AccountResponse> depositMoney(@RequestBody Transaction transaction) {
-        AccountResponse accountUpdated = accountService.depositMoney(transaction);
+    public ResponseEntity<AccountResponse> depositMoney(@RequestBody AccountTransaction accountTransaction) {
+        AccountResponse accountUpdated = accountService.depositMoney(accountTransaction);
         return ResponseEntity.ok(accountUpdated);
     }
 
     @PutMapping("/credit")
-    public ResponseEntity<AccountResponse> creditMoney(@RequestBody Transaction transaction) {
-        AccountResponse accountUpdated = accountService.creditMoney(transaction);
+    public ResponseEntity<AccountResponse> creditMoney(@RequestBody AccountTransaction accountTransaction) {
+        AccountResponse accountUpdated = accountService.creditMoney(accountTransaction);
         return ResponseEntity.ok(accountUpdated);
     }
 
