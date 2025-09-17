@@ -1,14 +1,12 @@
-package org.example.bankwithspringboot.dto.request;
+package org.example.bankwithspringboot.dto.request.accounts;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 // add valid
 // something for entities too
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountTransaction {

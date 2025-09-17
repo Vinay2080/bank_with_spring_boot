@@ -53,6 +53,4 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleDataAccess(DataAccessException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Database error, please try again later");
     }
-
-
 }

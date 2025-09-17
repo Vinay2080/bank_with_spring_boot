@@ -1,4 +1,4 @@
-package org.example.bankwithspringboot.dto.response;
+package org.example.bankwithspringboot.dto.response.accounts;
 
 import lombok.*;
 

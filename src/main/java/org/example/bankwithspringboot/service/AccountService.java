@@ -1,9 +1,10 @@
 package org.example.bankwithspringboot.service;
 
 import jakarta.transaction.Transactional;
-import org.example.bankwithspringboot.dto.request.AccountRequest;
-import org.example.bankwithspringboot.dto.request.AccountTransaction;
-import org.example.bankwithspringboot.dto.response.AccountResponse;
+import org.example.bankwithspringboot.dto.request.accounts.AccountDeleteRequest;
+import org.example.bankwithspringboot.dto.request.accounts.AccountRequest;
+import org.example.bankwithspringboot.dto.request.accounts.AccountTransaction;
+import org.example.bankwithspringboot.dto.response.accounts.AccountResponse;
 import org.example.bankwithspringboot.exception.ResourceAlreadyExistsException;
 import org.example.bankwithspringboot.exception.ResourceNotFoundException;
 import org.example.bankwithspringboot.model.Account;
@@ -26,6 +27,7 @@ public class AccountService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public Account createAccount(AccountRequest request) {
 
         var user = userRepository.findById(request.getUserId())
@@ -65,6 +67,7 @@ public class AccountService {
         return found.map(account -> new AccountResponse(account.getAccountNumber(), account.getBalance(), account.getAccountType()));
     }
 
+    @Transactional
     public AccountResponse depositMoney(AccountTransaction accountTransaction) {
         if (accountTransaction.getAmount() <= 0) {
             throw new IllegalArgumentException("deposit money must be positive");
@@ -77,6 +80,7 @@ public class AccountService {
         return new AccountResponse(saved.getAccountNumber(), saved.getBalance(), saved.getAccountType());
     }
 
+    @Transactional
     public AccountResponse creditMoney(AccountTransaction accountTransaction) {
         if (accountTransaction.getAmount() <= 0) {
             throw new IllegalArgumentException("credit amount must be positive");
@@ -95,14 +99,14 @@ public class AccountService {
     }
 
     @Transactional
-    public Optional<AccountResponse> removeAccount(String accountNumber) {
-        Optional<Account> removed = accountRepository.findAccountByAccountNumber(accountNumber).map(userFound -> {
-            accountRepository.deleteByAccountNumber(accountNumber);
-            return userFound;
-        });
-        return removed.map(account -> new AccountResponse(account.getAccountNumber(), account.getBalance(), account.getAccountType()));
-    }
+    public boolean removeAccount(AccountDeleteRequest request) {
+        if (findAccountByAccountNumber(request.getAccountNumber()).isEmpty()){
+            throw new ResourceNotFoundException("Account with this this account number does not exists.\nEnter a valid account number");
+        }
+        accountRepository.deleteByAccountNumber(request.getAccountNumber());
 
+        return true;
+    }
     // helper methods
 
     public String generateAccountNumber() {

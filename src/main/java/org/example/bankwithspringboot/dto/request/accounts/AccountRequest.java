@@ -1,11 +1,9 @@
-package org.example.bankwithspringboot.dto.request;
+package org.example.bankwithspringboot.dto.request.accounts;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
 public class AccountRequest {
     private Double initialBalance;

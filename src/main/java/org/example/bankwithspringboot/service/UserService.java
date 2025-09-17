@@ -2,11 +2,13 @@ package org.example.bankwithspringboot.service;
 
 import jakarta.transaction.Transactional;
 import lombok.Getter;
+import org.example.bankwithspringboot.dto.request.users.*;
+import org.example.bankwithspringboot.dto.response.users.UserUpdatedResponse;
+import org.example.bankwithspringboot.dto.response.users.UserResponse;
+import org.example.bankwithspringboot.exception.ResourceNotFoundException;
 import org.example.bankwithspringboot.model.User;
 import org.example.bankwithspringboot.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @Getter
@@ -18,53 +20,83 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User registeruser(User user) {
-        user.setId(null);
+    // add more exceptions
+    @Transactional
+    public UserResponse registerUser(UserRegisterRequest request) {
+
+        User user = new User();
+
+        user.setName(request.getName());
+        user.setUsername(request.getUsername());
+        user.setPhoneNumber(request.getPhoneNumber());
+        user.setPassword(request.getPassword());
+        user.setEmail(request.getEmail());
+
         user.getAccounts().forEach(account -> account.setUser(user));
-        return userRepository.save(user);
+        User saved = userRepository.save(user);
+        return new UserResponse(saved.getName(), saved.getUsername(), saved.getPhoneNumber(), saved.getEmail());
     }
 
-    public Optional<User> loginUser(String email, String password) {
-        Optional<User> user = userRepository.findByEmail(email);
+    public UserResponse loginUser(UserLoginAndDeleteRequest request) {
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("user with this email does not exists.\n enter a valid email."));
 
-        if (user.isPresent() && user.get().getPassword().equals(password)) {
-            return user;
+        if (!request.getPassword().equals(user.getPassword())) {
+            throw new IllegalArgumentException("Invalid Password");
         }
-        return Optional.empty();
-    }
-
-    public Optional<User> UpdateUsername(String username, String newUsername) {
-        return userRepository.findByUsername(username)
-                .map(user -> {
-                    user.setUsername(newUsername);
-                    return userRepository.save(user);
-                });
-    }
-
-    public Optional<User> UpdateEmail(String newEmail, String username) {
-        return userRepository
-                .findByUsername(username)
-                .map(var ->
-                {
-                    var.setEmail(newEmail);
-                    return userRepository.save(var);
-                });
-    }
-
-    public Optional<User> updatePassword(String password, String username) {
-        return userRepository
-                .findByUsername(username)
-                .map(var ->{
-                    var.setPassword(password);
-                    return userRepository.save(var);
-                });
+        return new UserResponse(
+                user.getUsername(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPhoneNumber()
+        );
     }
 
     @Transactional
-    public Optional<User> deleteUserByUsername(User user) {
-        return userRepository.findByUsername(user.getUsername()).map(foundUser->{
-            userRepository.deleteByUsername(user.getUsername());
-            return foundUser;
-        });
+    public UserUpdatedResponse updateUsername(UserUpdateUsernameRequest request) {
+        User user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ResourceNotFoundException("User with this username does not exists.\nEnter a valid username.\n"));
+        user.setUsername(request.getNewUsername());
+
+        return new UserUpdatedResponse(
+                user.getUsername(),
+                user.getEmail()
+        );
+    }
+
+    @Transactional
+    public UserUpdatedResponse updateEmail(UserUpdateEmailRequest request) {
+
+        User user = userRepository.findByEmail(request.getOldEmail()).orElseThrow(() -> new ResourceNotFoundException("User with this email does not exists.\nEnter a valid email"));
+
+        user.setEmail(request.getNewEmail());
+        return new UserUpdatedResponse(
+                user.getUsername(),
+                user.getEmail()
+        );
+    }
+
+    @Transactional
+    public UserUpdatedResponse updatePassword(UserUpdatePasswordRequest request) {
+        User user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ResourceNotFoundException("user with this username does not exists.\nEnter a valid email"));
+        if (!   user.getPassword().equals(request.getOldPassword())){
+            throw new IllegalArgumentException("old password does not match.");
+        }
+        user.setPassword(request.getNewPassword());
+        return new UserUpdatedResponse(
+                user.getUsername(),
+                user.getEmail()
+        );
+    }
+
+    @Transactional
+    public boolean deleteUser(UserLoginAndDeleteRequest request) {
+
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(()-> new ResourceNotFoundException("No user with this username is available.\nEnter a valid email."));
+
+        if (!user.getPassword().equals(request.getPassword())){
+            throw new IllegalArgumentException("enter password does not match.\nEnter a valid password");
+        }
+        userRepository.deleteUserByEmail(request.getEmail());
+        return true;
     }
 }

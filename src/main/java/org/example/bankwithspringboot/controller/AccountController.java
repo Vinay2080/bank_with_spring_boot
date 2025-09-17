@@ -1,8 +1,9 @@
 package org.example.bankwithspringboot.controller;
 
-import org.example.bankwithspringboot.dto.request.AccountRequest;
-import org.example.bankwithspringboot.dto.request.AccountTransaction;
-import org.example.bankwithspringboot.dto.response.AccountResponse;
+import org.example.bankwithspringboot.dto.request.accounts.AccountDeleteRequest;
+import org.example.bankwithspringboot.dto.request.accounts.AccountRequest;
+import org.example.bankwithspringboot.dto.request.accounts.AccountTransaction;
+import org.example.bankwithspringboot.dto.response.accounts.AccountResponse;
 import org.example.bankwithspringboot.model.Account;
 import org.example.bankwithspringboot.service.AccountService;
 import org.springframework.http.ResponseEntity;
@@ -58,11 +59,12 @@ public class AccountController {
         return ResponseEntity.ok(accountUpdated);
     }
 
-    @DeleteMapping("/delete/{accountNumber}")
-    public ResponseEntity<String> removeAccount(@PathVariable String accountNumber) {
-        Optional<AccountResponse> accountRemoved = accountService.removeAccount(accountNumber);
-        return accountRemoved
-                .map(account -> ResponseEntity.ok("account removed successfully: " + account.getAccountNumber())).orElseGet(() -> ResponseEntity.notFound().build());
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteAccount(@RequestBody AccountDeleteRequest request) {
+        boolean accountDeleted = accountService.removeAccount(request);
+        if (accountDeleted){
+            return ResponseEntity.ok("account deleted successfully");
+        }
+        return ResponseEntity.noContent().build();
     }
-
 }

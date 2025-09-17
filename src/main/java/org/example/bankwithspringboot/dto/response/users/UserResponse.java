@@ -1,4 +1,4 @@
-package org.example.bankwithspringboot.dto.request;
+package org.example.bankwithspringboot.dto.response.users;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,13 +7,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-
-public class userRequest {
+@AllArgsConstructor
+public class UserResponse {
     private String name;
     private String username;
-    private String password;
-    private String email;
     private String phoneNumber;
+    private String email;
 }
