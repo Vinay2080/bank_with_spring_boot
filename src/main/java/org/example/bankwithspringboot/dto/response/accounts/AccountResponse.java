@@ -3,7 +3,6 @@ package org.example.bankwithspringboot.dto.response.accounts;
 import lombok.*;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountResponse {

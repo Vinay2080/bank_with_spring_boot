@@ -35,20 +35,20 @@ public class UserController {
         return ResponseEntity.ok(loggedInUser);
     }
 
-    @PutMapping("/update/Username/")
+    @PutMapping("/update/Username")
     public ResponseEntity<UserUpdatedResponse> updateUsername(@RequestBody UserUpdateUsernameRequest request) {
         UserUpdatedResponse updatedUsername = service.updateUsername(request);
         return ResponseEntity.ok(updatedUsername);
        // change the status code
     }
 
-    @PutMapping("/update/email/")
+    @PutMapping("/update/email")
     public ResponseEntity<UserUpdatedResponse> updateEmail(@RequestBody UserUpdateEmailRequest request) {
         UserUpdatedResponse response = service.updateEmail(request);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/update/password/")
+    @PutMapping("/update/password")
     public ResponseEntity<UserUpdatedResponse> updatePassword(@RequestBody UserUpdatePasswordRequest request) {
         UserUpdatedResponse response = service.updatePassword(request);
         return ResponseEntity.ok(response);
