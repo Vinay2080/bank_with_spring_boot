@@ -30,7 +30,7 @@ public class AccountService {
     @Transactional
     public AccountResponse createAccount(AccountCreateRequest request) {
 
-        User user = userRepository.findById(request.getUserId()).orElseThrow(()-> new IllegalArgumentException("Enter a valid user ID"));
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new IllegalArgumentException("Enter a valid user ID"));
         String accountNumber = generateAccountNumber();
 
         if (accountRepository.findAccountByAccountNumber(accountNumber).isPresent()) {
@@ -50,78 +50,78 @@ public class AccountService {
         );
     }
 
-public List<AccountResponse> getAllAccounts() {
+    public List<AccountResponse> getAllAccounts() {
 
-    List<Account> accounts = accountRepository.findAll();
+        List<Account> accounts = accountRepository.findAll();
 
-    if (accounts.isEmpty()) {
-        throw new ResourceNotFoundException("no accounts found");
-    }
-    return accountRepository.findAll()
-            .stream()
-            .map(account -> new AccountResponse(
-                    account.getAccountNumber(),
-                    account.getBalance(),
-                    account.getAccountType()))
-            .toList();
-}
-
-public AccountResponse findAccountByAccountNumber(AccountNumberRequest request) {
-    Account account = accountRepository.findAccountByAccountNumber(request.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("No account exists with given account number. Enter a valid account number."));
-    return new AccountResponse
-            (account.getAccountNumber(),
-                    account.getBalance(),
-                    account.getAccountType());
-}
-
-@Transactional
-public AccountResponse depositMoney(AccountTransactionRequest accountTransactionRequest) {
-    if (accountTransactionRequest.getAmount() <= 0) {
-        throw new IllegalArgumentException("deposit money must be positive");
+        if (accounts.isEmpty()) {
+            throw new ResourceNotFoundException("no accounts found");
+        }
+        return accountRepository.findAll()
+                .stream()
+                .map(account -> new AccountResponse(
+                        account.getAccountNumber(),
+                        account.getBalance(),
+                        account.getAccountType()))
+                .toList();
     }
 
-    Account account = accountRepository.findAccountByAccountNumber(accountTransactionRequest.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("Account not found for accountNumber: " + accountTransactionRequest.getAccountNumber()));
-
-    account.setBalance(account.getBalance() - accountTransactionRequest.getAmount());
-    Account saved = accountRepository.save(account);
-    return new AccountResponse(saved.getAccountNumber(), saved.getBalance(), saved.getAccountType());
-}
-
-@Transactional
-public AccountResponse creditMoney(AccountTransactionRequest accountTransactionRequest) {
-    if (accountTransactionRequest.getAmount() <= 0) {
-        throw new IllegalArgumentException("credit amount must be positive");
+    public AccountResponse findAccountByAccountNumber(AccountNumberRequest request) {
+        Account account = accountRepository.findAccountByAccountNumber(request.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("No account exists with given account number. Enter a valid account number."));
+        return new AccountResponse
+                (account.getAccountNumber(),
+                        account.getBalance(),
+                        account.getAccountType());
     }
 
-    Account account = accountRepository.findAccountByAccountNumber(accountTransactionRequest.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("Account not found for accountNumber: " + accountTransactionRequest.getAccountNumber()));
+    @Transactional
+    public AccountResponse depositMoney(AccountTransactionRequest accountTransactionRequest) {
+        if (accountTransactionRequest.getAmount() <= 0) {
+            throw new IllegalArgumentException("deposit money must be positive");
+        }
 
-    if (account.getBalance() < accountTransactionRequest.getAmount()) {
-        throw new IllegalArgumentException("Insufficient balance for accountNumber: " + accountTransactionRequest.getAccountNumber());
+        Account account = accountRepository.findAccountByAccountNumber(accountTransactionRequest.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("Account not found for accountNumber: " + accountTransactionRequest.getAccountNumber()));
+
+        account.setBalance(account.getBalance() - accountTransactionRequest.getAmount());
+        Account saved = accountRepository.save(account);
+        return new AccountResponse(saved.getAccountNumber(), saved.getBalance(), saved.getAccountType());
     }
 
-    account.setBalance(account.getBalance() + accountTransactionRequest.getAmount());
-    Account saved = accountRepository.save(account);
+    @Transactional
+    public AccountResponse creditMoney(AccountTransactionRequest accountTransactionRequest) {
+        if (accountTransactionRequest.getAmount() <= 0) {
+            throw new IllegalArgumentException("credit amount must be positive");
+        }
 
-    return new AccountResponse(saved.getAccountNumber(), saved.getBalance(), saved.getAccountType());
-}
+        Account account = accountRepository.findAccountByAccountNumber(accountTransactionRequest.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("Account not found for accountNumber: " + accountTransactionRequest.getAccountNumber()));
 
-@Transactional
-public boolean removeAccount(AccountNumberRequest request) {
-    if (accountRepository.findAccountByAccountNumber(request.getAccountNumber()).isEmpty()) {
-        throw new ResourceNotFoundException("Account with this this account number does not exists. Enter a valid account number");
+        if (account.getBalance() < accountTransactionRequest.getAmount()) {
+            throw new IllegalArgumentException("Insufficient balance for accountNumber: " + accountTransactionRequest.getAccountNumber());
+        }
+
+        account.setBalance(account.getBalance() + accountTransactionRequest.getAmount());
+        Account saved = accountRepository.save(account);
+
+        return new AccountResponse(saved.getAccountNumber(), saved.getBalance(), saved.getAccountType());
     }
-    accountRepository.deleteByAccountNumber(request.getAccountNumber());
 
-    return true;
-}
+    @Transactional
+    public boolean removeAccount(AccountNumberRequest request) {
+        if (accountRepository.findAccountByAccountNumber(request.getAccountNumber()).isEmpty()) {
+            throw new ResourceNotFoundException("Account with this this account number does not exists. Enter a valid account number");
+        }
+        accountRepository.deleteByAccountNumber(request.getAccountNumber());
+
+        return true;
+    }
 // helper methods
 
-public String generateAccountNumber() {
-    Random random = new Random();
-    StringBuilder stringBuilder = new StringBuilder("2025");
-    for (int i = 0; i < 8; i++) {
-        stringBuilder.append(random.nextInt(10));
+    public String generateAccountNumber() {
+        Random random = new Random();
+        StringBuilder stringBuilder = new StringBuilder("2025");
+        for (int i = 0; i < 8; i++) {
+            stringBuilder.append(random.nextInt(10));
+        }
+        return stringBuilder.toString();
     }
-    return stringBuilder.toString();
 }
-    }

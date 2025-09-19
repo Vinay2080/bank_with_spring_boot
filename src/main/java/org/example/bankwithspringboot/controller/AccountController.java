@@ -1,6 +1,7 @@
 package org.example.bankwithspringboot.controller;
 
 import org.example.bankwithspringboot.dto.apiResponse.ApiResponse;
+import org.example.bankwithspringboot.dto.apiResponse.ResponseUtility;
 import org.example.bankwithspringboot.dto.request.accounts.AccountCreateRequest;
 import org.example.bankwithspringboot.dto.request.accounts.AccountNumberRequest;
 import org.example.bankwithspringboot.dto.request.accounts.AccountTransactionRequest;
@@ -25,72 +26,39 @@ public class AccountController {
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<AccountResponse>> createAccount(@RequestBody AccountCreateRequest request) {
         AccountResponse accountResponse = accountService.createAccount(request);
-        ApiResponse<AccountResponse> response = ApiResponse.<AccountResponse>builder()
-                .success(true)
-                .message("account created successfully")
-                .data(accountResponse)
-                .build();
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return ResponseUtility.success("Account created successfully", HttpStatus.CREATED, accountResponse);
     }
 
     @GetMapping("/get/all_accounts")
     public ResponseEntity<ApiResponse<List<AccountResponse>>> getAllAccounts() {
         List<AccountResponse> list = accountService.getAllAccounts();
-        ApiResponse<List<AccountResponse>> response = ApiResponse.<List<AccountResponse>>builder()
-                .success(true)
-                .message("Accounts fetched successfully")
-                .data(list)
-                .build();
-        return ResponseEntity.ok(response);
+        return ResponseUtility.success("accounts fetched successfully", HttpStatus.FOUND, list);
     }
 
     @GetMapping("/get/by_account_number")
     public ResponseEntity<ApiResponse<AccountResponse>> getAccountByAccountNumber(@RequestBody AccountNumberRequest request) {
         AccountResponse response = accountService.findAccountByAccountNumber(request);
-        ApiResponse<AccountResponse> apiResponse = ApiResponse.<AccountResponse>builder()
-                .success(true)
-                .message("account fetched successfully")
-                .data(response)
-                .build();
-        return ResponseEntity.ok(apiResponse);
+        return ResponseUtility.success("account fetched successfully",HttpStatus.FOUND, response);
     }
 
     @PutMapping("/deposit")
     public ResponseEntity<ApiResponse<AccountResponse>> depositMoney(@RequestBody AccountTransactionRequest accountTransactionRequest) {
         AccountResponse accountUpdated = accountService.depositMoney(accountTransactionRequest);
-        ApiResponse<AccountResponse> apiResponse = ApiResponse.<AccountResponse>builder()
-                .success(true)
-                .message("transaction completed successfully")
-                .data(accountUpdated)
-                .build();
-        return ResponseEntity.ok(apiResponse);
+        return ResponseUtility.success("amount deposited successfully", HttpStatus.OK, accountUpdated);
     }
 
     @PutMapping("/credit")
     public ResponseEntity<ApiResponse<AccountResponse>> creditMoney(@RequestBody AccountTransactionRequest accountTransactionRequest) {
         AccountResponse accountUpdated = accountService.creditMoney(accountTransactionRequest);
-        ApiResponse<AccountResponse> apiResponse = ApiResponse.<AccountResponse>builder()
-                .success(true)
-                .message("amount credited successfully")
-                .data(accountUpdated)
-                .build();
-        return ResponseEntity.ok(apiResponse);
+        return ResponseUtility.success("amount credited successfully", HttpStatus.OK, accountUpdated);
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<ApiResponse<Object>> deleteAccount(@RequestBody AccountNumberRequest request) {
         boolean accountDeleted = accountService.removeAccount(request);
         if (accountDeleted) {
-            ApiResponse<Object> apiResponse = ApiResponse.builder()
-                    .success(true)
-                    .message("Account deleted successfully")
-                    .build();
-            return ResponseEntity.ok(apiResponse);
+            return ResponseUtility.success("amount credited successfully", HttpStatus.OK, null);
         }
-        ApiResponse<Object> apiResponse = ApiResponse.builder()
-                .success(false)
-                .message("Account not found or could not be deleted")
-                .build();
-        return ResponseEntity.ok(apiResponse);
+        return ResponseUtility.error("account not found", HttpStatus.NOT_FOUND);
     }
 }

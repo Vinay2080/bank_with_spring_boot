@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 @Getter
 public class UserService {
 
+    // user new password and old password must not be the same applied for all of them.
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    // add more exceptions
     @Transactional
     public UserResponse registerUser(UserRegisterRequest request) {
 
