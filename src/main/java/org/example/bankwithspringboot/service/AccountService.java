@@ -8,6 +8,7 @@ import org.example.bankwithspringboot.dto.response.accounts.AccountResponse;
 import org.example.bankwithspringboot.exception.ResourceAlreadyExistsException;
 import org.example.bankwithspringboot.exception.ResourceNotFoundException;
 import org.example.bankwithspringboot.model.Account;
+import org.example.bankwithspringboot.model.User;
 import org.example.bankwithspringboot.repository.AccountRepository;
 import org.example.bankwithspringboot.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,8 @@ public class AccountService {
 
     @Transactional
     public AccountResponse createAccount(AccountCreateRequest request) {
-        if (userRepository.findById(request.getUserId()).isEmpty()) {
-            throw new IllegalArgumentException("Enter a valid user ID");
-        }
+
+        User user = userRepository.findById(request.getUserId()).orElseThrow(()-> new IllegalArgumentException("Enter a valid user ID"));
         String accountNumber = generateAccountNumber();
 
         if (accountRepository.findAccountByAccountNumber(accountNumber).isPresent()) {
@@ -39,10 +39,15 @@ public class AccountService {
         Account account = new Account();
         account.setAccountType(request.getAccountType());
         account.setAccountNumber(accountNumber);
+        account.setBalance(request.getInitialBalance() != null ? request.getInitialBalance() : 0.0);
+        account.setUser(user);
+
+        Account saved = accountRepository.save(account);
         return new AccountResponse(
-                account.getAccountNumber(),
-                account.getBalance(),
-                account.getAccountType());
+                saved.getAccountNumber(),
+                saved.getBalance(),
+                saved.getAccountType()
+        );
     }
 
 public List<AccountResponse> getAllAccounts() {
@@ -62,7 +67,7 @@ public List<AccountResponse> getAllAccounts() {
 }
 
 public AccountResponse findAccountByAccountNumber(AccountNumberRequest request) {
-    Account account = accountRepository.findAccountByAccountNumber(request.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("No account exists with given account number.\nEnter a valid account number."));
+    Account account = accountRepository.findAccountByAccountNumber(request.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("No account exists with given account number. Enter a valid account number."));
     return new AccountResponse
             (account.getAccountNumber(),
                     account.getBalance(),
@@ -103,7 +108,7 @@ public AccountResponse creditMoney(AccountTransactionRequest accountTransactionR
 @Transactional
 public boolean removeAccount(AccountNumberRequest request) {
     if (accountRepository.findAccountByAccountNumber(request.getAccountNumber()).isEmpty()) {
-        throw new ResourceNotFoundException("Account with this this account number does not exists.\nEnter a valid account number");
+        throw new ResourceNotFoundException("Account with this this account number does not exists. Enter a valid account number");
     }
     accountRepository.deleteByAccountNumber(request.getAccountNumber());
 

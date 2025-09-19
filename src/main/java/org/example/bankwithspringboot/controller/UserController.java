@@ -1,10 +1,12 @@
 package org.example.bankwithspringboot.controller;
 
 import lombok.Getter;
+import org.example.bankwithspringboot.dto.apiResponse.ApiResponse;
 import org.example.bankwithspringboot.dto.request.users.*;
 import org.example.bankwithspringboot.dto.response.users.UserUpdatedResponse;
 import org.example.bankwithspringboot.dto.response.users.UserResponse;
 import org.example.bankwithspringboot.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,42 +26,51 @@ public class UserController {
     // login by phone number
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponse> registerUser(@RequestBody UserRegisterRequest request) {
+    public ResponseEntity<ApiResponse<Object>> registerUser(@RequestBody UserRegisterRequest request) {
         UserResponse savedUser = service.registerUser(request);
-        return ResponseEntity.ok(savedUser);
+        return response("user registered successfully ", HttpStatus.CREATED, savedUser);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponse> loginUser(@RequestBody UserLoginAndDeleteRequest request) {
+    public ResponseEntity<ApiResponse<UserResponse>> loginUser(@RequestBody UserLoginAndDeleteRequest request) {
         UserResponse loggedInUser = service.loginUser(request);
-        return ResponseEntity.ok(loggedInUser);
+        return response("user logged in successfully", HttpStatus.ACCEPTED, loggedInUser);
     }
 
     @PutMapping("/update/Username")
-    public ResponseEntity<UserUpdatedResponse> updateUsername(@RequestBody UserUpdateUsernameRequest request) {
+    public ResponseEntity<ApiResponse<UserUpdatedResponse>> updateUsername(@RequestBody UserUpdateUsernameRequest request) {
         UserUpdatedResponse updatedUsername = service.updateUsername(request);
-        return ResponseEntity.ok(updatedUsername);
+        return response("username updated successfully",HttpStatus.OK, updatedUsername);
        // change the status code
     }
 
     @PutMapping("/update/email")
-    public ResponseEntity<UserUpdatedResponse> updateEmail(@RequestBody UserUpdateEmailRequest request) {
-        UserUpdatedResponse response = service.updateEmail(request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<ApiResponse<UserUpdatedResponse>> updateEmail(@RequestBody UserUpdateEmailRequest request) {
+        UserUpdatedResponse userUpdatedResponse = service.updateEmail(request);
+        return response("email updated successfully", HttpStatus.OK, userUpdatedResponse);
     }
 
     @PutMapping("/update/password")
-    public ResponseEntity<UserUpdatedResponse> updatePassword(@RequestBody UserUpdatePasswordRequest request) {
-        UserUpdatedResponse response = service.updatePassword(request);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<ApiResponse<UserUpdatedResponse>> updatePassword(@RequestBody UserUpdatePasswordRequest request) {
+        UserUpdatedResponse userUpdatedResponse = service.updatePassword(request);
+        return response("password updated successfully", HttpStatus.OK, userUpdatedResponse);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteUser(@RequestBody UserLoginAndDeleteRequest request) {
+    public ResponseEntity<ApiResponse<Object>> deleteUser(@RequestBody UserLoginAndDeleteRequest request) {
         boolean accountDeleted = service.deleteUser(request);
         if (!accountDeleted){
-            return ResponseEntity.notFound().build();
+            return response("User not found", HttpStatus.NOT_FOUND, null);
         }
-        return ResponseEntity.ok("User deleted successfully");
+        return response("Account deleted successfully", HttpStatus.OK, null);
+    }
+
+    private <T> ResponseEntity<ApiResponse<T>> response(String message, HttpStatus status, T data){
+        ApiResponse<T> response = ApiResponse.<T>builder()
+                .success(true)
+                .message(message)
+                .data(data)
+                .build();
+        return new ResponseEntity<>(response, status);
     }
 }
