@@ -1,5 +1,9 @@
 package org.example.bankwithspringboot.dto.request.accounts;
 
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,5 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class AccountNumberRequest {
+    @NotNull(message = "account Number cannot be null")
+    @Pattern(regexp = "^2025\\d{8}$", message = "Account Number starts with 2025 and is 12 digits long")
+    @Size(min = 12, max = 12, message = "account number must be exactly 12 digits")
+    @Digits(integer = 12, fraction = 0, message = "Account number must contain only digits")
     private String accountNumber;
 }

@@ -6,8 +6,16 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -40,8 +48,31 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DataAccessException.class)
     public ResponseEntity<ApiResponse<Object>> handleDataAccess(DataAccessException exception) {
-        return ResponseUtility.error("Database error, please try again later. "+exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseUtility.error("Database error, please try again later. " + exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse<Map<String,Object>>> handleValidationException(MethodArgumentNotValidException exception) {
+        List<String> errors = new ArrayList<>();
 
+        exception.getBindingResult().getFieldErrors().forEach(
+                error -> errors.add(String.format("%s: %s", error.getField(), error.getDefaultMessage()))
+        );
+
+        exception.getBindingResult().getGlobalErrors().forEach(
+                error ->errors.add(String.format("%s: %s", error.getObjectName(), error.getDefaultMessage()))
+        );
+
+        Map<String, Object> errorResponse = new HashMap<>();
+        errorResponse.put("timeStamp", LocalDateTime.now());
+        errorResponse.put("status", HttpStatus.BAD_REQUEST.value());
+        errorResponse.put("errors", errors);
+
+        ApiResponse<Map<String, Object>> response = ApiResponse.<Map<String, Object>>builder()
+                .success(false)
+                .message("validation failed")
+                .data(errorResponse)
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

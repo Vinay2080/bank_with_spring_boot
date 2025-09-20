@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.bankwithspringboot.enums.AccountType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -31,8 +32,9 @@ public class Account {
     @Column(nullable = false)
     private Double balance;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String accountType;
+    private AccountType accountType;
 
     @Column(updatable = false)
     @CreationTimestamp

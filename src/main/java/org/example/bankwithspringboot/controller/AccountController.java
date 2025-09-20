@@ -1,5 +1,6 @@
 package org.example.bankwithspringboot.controller;
 
+import jakarta.validation.Valid;
 import org.example.bankwithspringboot.dto.apiResponse.ApiResponse;
 import org.example.bankwithspringboot.dto.apiResponse.ResponseUtility;
 import org.example.bankwithspringboot.dto.request.accounts.AccountCreateRequest;
@@ -24,7 +25,7 @@ public class AccountController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse<AccountResponse>> createAccount(@RequestBody AccountCreateRequest request) {
+    public ResponseEntity<ApiResponse<AccountResponse>> createAccount(@Valid @RequestBody AccountCreateRequest request) {
         AccountResponse accountResponse = accountService.createAccount(request);
         return ResponseUtility.success("Account created successfully", HttpStatus.CREATED, accountResponse);
     }
@@ -36,25 +37,25 @@ public class AccountController {
     }
 
     @GetMapping("/get/by_account_number")
-    public ResponseEntity<ApiResponse<AccountResponse>> getAccountByAccountNumber(@RequestBody AccountNumberRequest request) {
+    public ResponseEntity<ApiResponse<AccountResponse>> getAccountByAccountNumber(@Valid @RequestBody AccountNumberRequest request) {
         AccountResponse response = accountService.findAccountByAccountNumber(request);
         return ResponseUtility.success("account fetched successfully",HttpStatus.FOUND, response);
     }
 
     @PutMapping("/deposit")
-    public ResponseEntity<ApiResponse<AccountResponse>> depositMoney(@RequestBody AccountTransactionRequest accountTransactionRequest) {
+    public ResponseEntity<ApiResponse<AccountResponse>> depositMoney(@Valid @RequestBody AccountTransactionRequest accountTransactionRequest) {
         AccountResponse accountUpdated = accountService.depositMoney(accountTransactionRequest);
         return ResponseUtility.success("amount deposited successfully", HttpStatus.OK, accountUpdated);
     }
 
     @PutMapping("/credit")
-    public ResponseEntity<ApiResponse<AccountResponse>> creditMoney(@RequestBody AccountTransactionRequest accountTransactionRequest) {
+    public ResponseEntity<ApiResponse<AccountResponse>> creditMoney(@Valid @RequestBody AccountTransactionRequest accountTransactionRequest) {
         AccountResponse accountUpdated = accountService.creditMoney(accountTransactionRequest);
         return ResponseUtility.success("amount credited successfully", HttpStatus.OK, accountUpdated);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ApiResponse<Object>> deleteAccount(@RequestBody AccountNumberRequest request) {
+    public ResponseEntity<ApiResponse<Object>> deleteAccount(@Valid @RequestBody AccountNumberRequest request) {
         boolean accountDeleted = accountService.removeAccount(request);
         if (accountDeleted) {
             return ResponseUtility.success("amount credited successfully", HttpStatus.OK, null);
