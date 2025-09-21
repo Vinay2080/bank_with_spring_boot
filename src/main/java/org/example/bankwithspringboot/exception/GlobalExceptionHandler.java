@@ -52,27 +52,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse<Map<String,Object>>> handleValidationException(MethodArgumentNotValidException exception) {
-        List<String> errors = new ArrayList<>();
-
-        exception.getBindingResult().getFieldErrors().forEach(
-                error -> errors.add(String.format("%s: %s", error.getField(), error.getDefaultMessage()))
-        );
-
-        exception.getBindingResult().getGlobalErrors().forEach(
-                error ->errors.add(String.format("%s: %s", error.getObjectName(), error.getDefaultMessage()))
-        );
-
-        Map<String, Object> errorResponse = new HashMap<>();
-        errorResponse.put("timeStamp", LocalDateTime.now());
-        errorResponse.put("status", HttpStatus.BAD_REQUEST.value());
-        errorResponse.put("errors", errors);
-
-        ApiResponse<Map<String, Object>> response = ApiResponse.<Map<String, Object>>builder()
-                .success(false)
-                .message("validation failed")
-                .data(errorResponse)
-                .build();
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ApiResponse<Object>> handleValidationException(MethodArgumentNotValidException exception) {
+        String errorMessage;
+        if (!exception.getBindingResult().getFieldErrors().isEmpty()) {
+            errorMessage = exception.getBindingResult().getFieldErrors().getFirst().getDefaultMessage();
+        } else if (!exception.getBindingResult().getGlobalErrors().isEmpty()) {
+            errorMessage =exception.getBindingResult().getGlobalErrors().getFirst().getDefaultMessage();
+        }else {
+            errorMessage = "validation failed";
+        }
+        return ResponseUtility.error(errorMessage,HttpStatus.BAD_REQUEST);
     }
 }
