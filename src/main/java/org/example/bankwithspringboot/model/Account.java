@@ -5,9 +5,7 @@ id, account number, balance, account type, time stamp (created at and updated at
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.example.bankwithspringboot.enums.AccountType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,9 +14,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-
 @Table(name = "Accounts")
 public class Account {
 

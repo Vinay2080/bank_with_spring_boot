@@ -42,11 +42,7 @@ public class AccountController {
         return ResponseUtility.success("account fetched successfully",HttpStatus.FOUND, response);
     }
 
-    @PutMapping("/deposit")
-    public ResponseEntity<ApiResponse<AccountResponse>> depositMoney(@Valid @RequestBody AccountTransactionRequest accountTransactionRequest) {
-        AccountResponse accountUpdated = accountService.depositMoney(accountTransactionRequest);
-        return ResponseUtility.success("amount deposited successfully", HttpStatus.OK, accountUpdated);
-    }
+
 
     @PutMapping("/credit")
     public ResponseEntity<ApiResponse<AccountResponse>> creditMoney(@Valid @RequestBody AccountTransactionRequest accountTransactionRequest) {

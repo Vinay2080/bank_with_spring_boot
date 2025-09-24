@@ -75,19 +75,6 @@ public class AccountService {
     }
 
     @Transactional
-    public AccountResponse depositMoney(AccountTransactionRequest accountTransactionRequest) {
-        if (accountTransactionRequest.getAmount() <= 0) {
-            throw new IllegalArgumentException("deposit money must be positive");
-        }
-
-        Account account = accountRepository.findAccountByAccountNumber(accountTransactionRequest.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("Account not found for accountNumber: " + accountTransactionRequest.getAccountNumber()));
-
-        account.setBalance(account.getBalance() - accountTransactionRequest.getAmount());
-        Account saved = accountRepository.save(account);
-        return new AccountResponse(saved.getAccountNumber(), saved.getBalance(), saved.getAccountType());
-    }
-
-    @Transactional
     public AccountResponse creditMoney(AccountTransactionRequest accountTransactionRequest) {
         if (accountTransactionRequest.getAmount() <= 0) {
             throw new IllegalArgumentException("credit amount must be positive");
