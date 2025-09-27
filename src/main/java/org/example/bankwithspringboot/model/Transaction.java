@@ -23,7 +23,6 @@ public class Transaction {
     @Column(nullable = false)
     private Double balance;
 
-
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 

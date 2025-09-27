@@ -5,7 +5,6 @@ import org.example.bankwithspringboot.dto.apiResponse.ApiResponse;
 import org.example.bankwithspringboot.dto.apiResponse.ResponseUtility;
 import org.example.bankwithspringboot.dto.request.accounts.AccountCreateRequest;
 import org.example.bankwithspringboot.dto.request.accounts.AccountNumberRequest;
-import org.example.bankwithspringboot.dto.request.accounts.AccountTransactionRequest;
 import org.example.bankwithspringboot.dto.response.accounts.AccountResponse;
 import org.example.bankwithspringboot.service.AccountService;
 import org.springframework.http.HttpStatus;
@@ -40,14 +39,6 @@ public class AccountController {
     public ResponseEntity<ApiResponse<AccountResponse>> getAccountByAccountNumber(@Valid @RequestBody AccountNumberRequest request) {
         AccountResponse response = accountService.findAccountByAccountNumber(request);
         return ResponseUtility.success("account fetched successfully",HttpStatus.FOUND, response);
-    }
-
-
-
-    @PutMapping("/credit")
-    public ResponseEntity<ApiResponse<AccountResponse>> creditMoney(@Valid @RequestBody AccountTransactionRequest accountTransactionRequest) {
-        AccountResponse accountUpdated = accountService.creditMoney(accountTransactionRequest);
-        return ResponseUtility.success("amount credited successfully", HttpStatus.OK, accountUpdated);
     }
 
     @DeleteMapping("/delete")

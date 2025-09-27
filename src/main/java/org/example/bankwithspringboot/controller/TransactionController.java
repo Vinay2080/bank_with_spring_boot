@@ -28,4 +28,10 @@ public class TransactionController {
         TransactionResponse deposited = transactionService.depositMoney(request);
         return ResponseUtility.success("amount deposited successfully", HttpStatus.OK, deposited);
     }
+
+    @PutMapping("/withdraw")
+    public ResponseEntity<ApiResponse<TransactionResponse>> creditMoney(@Valid @RequestBody TransactionRequest request){
+        TransactionResponse credited = transactionService.creditMoney(request);
+        return ResponseUtility.success("amount withdrawn successfully", HttpStatus.OK, credited);
+    }
 }

@@ -3,7 +3,6 @@ package org.example.bankwithspringboot.service;
 import jakarta.transaction.Transactional;
 import org.example.bankwithspringboot.dto.request.accounts.AccountCreateRequest;
 import org.example.bankwithspringboot.dto.request.accounts.AccountNumberRequest;
-import org.example.bankwithspringboot.dto.request.accounts.AccountTransactionRequest;
 import org.example.bankwithspringboot.dto.response.accounts.AccountResponse;
 import org.example.bankwithspringboot.exception.ResourceAlreadyExistsException;
 import org.example.bankwithspringboot.exception.ResourceNotFoundException;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
-import java.lang.StringBuilder;
 
 @Service
 public class AccountService {
@@ -72,24 +70,6 @@ public class AccountService {
                 (account.getAccountNumber(),
                         account.getBalance(),
                         account.getAccountType());
-    }
-
-    @Transactional
-    public AccountResponse creditMoney(AccountTransactionRequest accountTransactionRequest) {
-        if (accountTransactionRequest.getAmount() <= 0) {
-            throw new IllegalArgumentException("credit amount must be positive");
-        }
-
-        Account account = accountRepository.findAccountByAccountNumber(accountTransactionRequest.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("Account not found for accountNumber: " + accountTransactionRequest.getAccountNumber()));
-
-        if (account.getBalance() < accountTransactionRequest.getAmount()) {
-            throw new IllegalArgumentException("Insufficient balance for accountNumber: " + accountTransactionRequest.getAccountNumber());
-        }
-
-        account.setBalance(account.getBalance() + accountTransactionRequest.getAmount());
-        Account saved = accountRepository.save(account);
-
-        return new AccountResponse(saved.getAccountNumber(), saved.getBalance(), saved.getAccountType());
     }
 
     @Transactional

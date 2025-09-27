@@ -2,14 +2,14 @@ package org.example.bankwithspringboot.controller;
 
 import lombok.Getter;
 import org.example.bankwithspringboot.dto.apiResponse.ApiResponse;
+import org.example.bankwithspringboot.dto.apiResponse.ResponseUtility;
 import org.example.bankwithspringboot.dto.request.users.*;
-import org.example.bankwithspringboot.dto.response.users.UserUpdatedResponse;
 import org.example.bankwithspringboot.dto.response.users.UserResponse;
+import org.example.bankwithspringboot.dto.response.users.UserUpdatedResponse;
 import org.example.bankwithspringboot.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.example.bankwithspringboot.dto.apiResponse.ResponseUtility;
 
 @RestController
 @RequestMapping("/api/user")

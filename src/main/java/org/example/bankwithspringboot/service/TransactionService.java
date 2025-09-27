@@ -1,6 +1,7 @@
 package org.example.bankwithspringboot.service;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.example.bankwithspringboot.dto.request.transactions.TransactionRequest;
 import org.example.bankwithspringboot.dto.response.transaction.TransactionResponse;
 import org.example.bankwithspringboot.enums.TransactionType;
@@ -24,26 +25,45 @@ public class TransactionService {
     @Transactional
     public TransactionResponse depositMoney(TransactionRequest request) {
 
-        Account account = accountRepository.findAccountByAccountNumber(request.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("account with " + request.getAccountNumber() + " account number does not exists enter a valid number"));
-
-        if (request.getAmount() <= 0) {
-            throw new IllegalArgumentException("amount must be greater than 0");
-        }
+        Account account = accountRepository
+                .findAccountByAccountNumber(request.getAccountNumber())
+                .orElseThrow(() -> new ResourceNotFoundException("account with " + request.getAccountNumber() + " Account with provided account number does not exists enter a valid account number"));
 
         account.setBalance(account.getBalance() + request.getAmount());
         accountRepository.save(account);
         Transaction transaction = new Transaction();
 
         transaction.setTransactionType(TransactionType.CREDIT);
+        transaction.setAccountDebited(null);
+        transaction.setBalance(account.getBalance());
+        transaction.setAccountCredited(request.getAccountNumber());
+        Transaction saved = transactionRepository.save(transaction);
+        return new TransactionResponse(
+                saved.getAccountDebited(),
+                saved.getBalance());
+    }
+
+    public TransactionResponse creditMoney(@Valid TransactionRequest request) {
+        Account account = accountRepository
+                .findAccountByAccountNumber(request.getAccountNumber())
+                .orElseThrow(() -> new ResourceNotFoundException("Account with provided account number does not exists enter a valid account number"));
+
+        if (request.getAmount() > account.getBalance()){
+            throw new IllegalArgumentException("insufficient balance");
+        }
+            account.setBalance(account.getBalance() - request.getAmount());
+        accountRepository.save(account);
+
+        Transaction transaction = new Transaction();
+        transaction.setTransactionType(TransactionType.DEBIT);
         transaction.setAccountDebited(request.getAccountNumber());
         transaction.setBalance(account.getBalance());
         transaction.setAccountCredited(null);
 
         Transaction saved = transactionRepository.save(transaction);
-        return new TransactionResponse(
-                saved.getAccountDebited(),
-                saved.getBalance()
 
-        );
+        return new TransactionResponse(
+                saved.getAccountCredited(),
+                saved.getBalance());
     }
 }

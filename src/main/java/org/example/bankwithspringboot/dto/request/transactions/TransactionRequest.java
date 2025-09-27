@@ -20,4 +20,6 @@ public class TransactionRequest {
     @DecimalMax(value = "1000000.00", message = "Amount cannot exceed 1,000,000.00")
     @Digits(integer = 7, fraction = 2, message = "Amount must have up to 7 integer and 2 decimal places")
     Double amount;
+
+
 }

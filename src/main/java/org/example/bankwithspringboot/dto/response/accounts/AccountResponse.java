@@ -1,6 +1,8 @@
 package org.example.bankwithspringboot.dto.response.accounts;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.example.bankwithspringboot.enums.AccountType;
 
 @Getter
