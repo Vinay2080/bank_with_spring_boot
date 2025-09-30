@@ -10,6 +10,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.bankwithspringboot.enums.Stakeholder;
+import org.example.bankwithspringboot.enums.UserStatus;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -42,6 +44,12 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    UserStatus status = UserStatus.ACTIVE;
+
+    @Enumerated(EnumType.STRING)
+    Stakeholder stakeholder = Stakeholder.USER;
 
     @Column(updatable = false)
     @CreationTimestamp

@@ -3,12 +3,16 @@ package org.example.bankwithspringboot.dto.response.transaction;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.http.HttpStatus;
 
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class TransactionResponse {
 
-    private String accountNumber;
-    private Double currentBalance;
+    private String message;
+
+    private HttpStatus status;
 }

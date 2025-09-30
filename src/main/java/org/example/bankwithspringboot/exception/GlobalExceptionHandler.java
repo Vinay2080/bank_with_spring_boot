@@ -6,6 +6,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -44,16 +45,21 @@ public class GlobalExceptionHandler {
         return ResponseUtility.error("Database error, please try again later. " + exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ApiResponse<Object>> handleBadCredentials(BadCredentialsException exception) {
+        return ResponseUtility.error("Bad Credentials " + exception.getMessage(), HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Object>> handleValidationException(MethodArgumentNotValidException exception) {
         String errorMessage;
         if (!exception.getBindingResult().getFieldErrors().isEmpty()) {
             errorMessage = exception.getBindingResult().getFieldErrors().getFirst().getDefaultMessage();
         } else if (!exception.getBindingResult().getGlobalErrors().isEmpty()) {
-            errorMessage =exception.getBindingResult().getGlobalErrors().getFirst().getDefaultMessage();
-        }else {
+            errorMessage = exception.getBindingResult().getGlobalErrors().getFirst().getDefaultMessage();
+        } else {
             errorMessage = "validation failed";
         }
-        return ResponseUtility.error(errorMessage,HttpStatus.BAD_REQUEST);
+        return ResponseUtility.error(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }

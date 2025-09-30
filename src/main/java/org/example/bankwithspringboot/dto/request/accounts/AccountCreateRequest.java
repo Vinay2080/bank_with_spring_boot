@@ -27,4 +27,7 @@ public class AccountCreateRequest {
 
     @NotNull(message = "Account type cannot be null")
     private AccountType accountType;
+
+    @Pattern(regexp = "^\\d{4}$", message = "password should consist of 4 digits")
+    private String password;
 }

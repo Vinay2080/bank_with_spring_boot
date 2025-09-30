@@ -16,4 +16,8 @@ public class AccountNumberRequest {
     @Pattern(regexp = "^2025\\d{8}$", message = "Account Number starts with 2025 and is 12 digits long")
     @Digits(integer = 12, fraction = 0, message = "Account number must contain only digits")
     private String accountNumber;
+
+    @NotNull
+    @Pattern(regexp = "^\\d{4}$", message = "password should consist of 4 digits")
+    private String password;
 }

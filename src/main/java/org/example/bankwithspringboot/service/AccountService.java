@@ -4,12 +4,15 @@ import jakarta.transaction.Transactional;
 import org.example.bankwithspringboot.dto.request.accounts.AccountCreateRequest;
 import org.example.bankwithspringboot.dto.request.accounts.AccountNumberRequest;
 import org.example.bankwithspringboot.dto.response.accounts.AccountResponse;
+import org.example.bankwithspringboot.enums.AccountStatus;
 import org.example.bankwithspringboot.exception.ResourceAlreadyExistsException;
 import org.example.bankwithspringboot.exception.ResourceNotFoundException;
 import org.example.bankwithspringboot.model.Account;
 import org.example.bankwithspringboot.model.User;
 import org.example.bankwithspringboot.repository.AccountRepository;
 import org.example.bankwithspringboot.repository.UserRepository;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,16 +22,18 @@ import java.util.Random;
 public class AccountService {
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public AccountService(AccountRepository accountRepository, UserRepository userRepository) {
+    public AccountService(AccountRepository accountRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     public AccountResponse createAccount(AccountCreateRequest request) {
 
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new IllegalArgumentException("Enter a valid user ID"));
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new ResourceNotFoundException("Enter a valid user ID"));
         String accountNumber = generateAccountNumber();
 
         if (accountRepository.findAccountByAccountNumber(accountNumber).isPresent()) {
@@ -39,6 +44,7 @@ public class AccountService {
         account.setAccountNumber(accountNumber);
         account.setBalance(request.getInitialBalance() != null ? request.getInitialBalance() : 0.0);
         account.setUser(user);
+        account.setPassword(passwordEncoder.encode(request.getPassword()));
 
         Account saved = accountRepository.save(account);
         return new AccountResponse(
@@ -66,6 +72,12 @@ public class AccountService {
 
     public AccountResponse findAccountByAccountNumber(AccountNumberRequest request) {
         Account account = accountRepository.findAccountByAccountNumber(request.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("No account exists with given account number. Enter a valid account number."));
+        if (!passwordEncoder.matches(request.getPassword(), account.getPassword())) {
+            throw new BadCredentialsException("Incorrect password");
+        }
+        if (account.getAccountStatus() == AccountStatus.CLOSED) {
+            throw new ResourceNotFoundException("This account is closed");
+        }
         return new AccountResponse
                 (account.getAccountNumber(),
                         account.getBalance(),
@@ -74,11 +86,14 @@ public class AccountService {
 
     @Transactional
     public boolean removeAccount(AccountNumberRequest request) {
-        if (accountRepository.findAccountByAccountNumber(request.getAccountNumber()).isEmpty()) {
-            throw new ResourceNotFoundException("Account with this this account number does not exists. Enter a valid account number");
+        Account account = accountRepository.findAccountByAccountNumber(request.getAccountNumber()).orElseThrow(() -> new ResourceNotFoundException("No account exists with given account number. Enter a valid account number."));
+        if (!passwordEncoder.matches(request.getPassword(), account.getPassword())) {
+            throw new BadCredentialsException("Incorrect password");
         }
-        accountRepository.deleteByAccountNumber(request.getAccountNumber());
-
+        if (account.getAccountStatus() == AccountStatus.CLOSED) {
+            return false;
+        }
+        account.setAccountStatus(AccountStatus.CLOSED);
         return true;
     }
 // helper methods

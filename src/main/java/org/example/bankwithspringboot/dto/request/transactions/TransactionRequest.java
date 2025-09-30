@@ -13,7 +13,15 @@ public class TransactionRequest {
     @NotBlank(message = "Account number is required")
     @Pattern(regexp = "^2025\\d{8}$", message = "Account number must start with 2025 and be 12 digits long")
     @Size(min = 12, max = 12, message = "Account number must be exactly 12 digits")
-    String accountNumber;
+    String debitAccountNumber;
+
+    @Pattern(regexp = "^\\d{4}$", message = "password should consist of 4 digits")
+    String password;
+
+    @NotBlank(message = "Account number is required")
+    @Pattern(regexp = "^2025\\d{8}$", message = "Account number must start with 2025 and be 12 digits long")
+    @Size(min = 12, max = 12, message = "Account number must be exactly 12 digits")
+    String creditAccountNumber;
 
     @NotNull(message = "Amount is required")
     @Positive(message = "Amount must be greater than zero")

@@ -8,7 +8,7 @@ import org.example.bankwithspringboot.dto.response.transaction.TransactionRespon
 import org.example.bankwithspringboot.service.TransactionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,15 +23,12 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @PutMapping("/deposit")
-    public ResponseEntity<ApiResponse<TransactionResponse>> depositMoney(@Valid @RequestBody TransactionRequest request) {
-        TransactionResponse deposited = transactionService.depositMoney(request);
-        return ResponseUtility.success("amount deposited successfully", HttpStatus.OK, deposited);
-    }
-
-    @PutMapping("/withdraw")
-    public ResponseEntity<ApiResponse<TransactionResponse>> creditMoney(@Valid @RequestBody TransactionRequest request){
-        TransactionResponse credited = transactionService.creditMoney(request);
-        return ResponseUtility.success("amount withdrawn successfully", HttpStatus.OK, credited);
+    @PostMapping("/transferMoney")
+    public ResponseEntity<ApiResponse<Object>> transferMoney(@Valid @RequestBody TransactionRequest request){
+        boolean status = transactionService.transferMoney(request);
+        if (!status){
+            return ResponseUtility.error("Server down", HttpStatus.BAD_REQUEST);
+        }
+        return ResponseUtility.success("Transaction successful", HttpStatus.OK, null);
     }
 }
