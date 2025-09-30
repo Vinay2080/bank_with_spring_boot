@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserLoginAndDeleteRequest {
+public class userDeleteRequest {
 
     @Email(message = "enter a valid email")
     @NotNull(message = "email cannot be null")

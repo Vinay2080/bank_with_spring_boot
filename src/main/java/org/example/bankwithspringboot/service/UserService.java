@@ -37,21 +37,6 @@ public class UserService {
         return new UserResponse(saved.getName(), saved.getUsername(), saved.getPhoneNumber(), saved.getEmail());
     }
 
-    public UserResponse loginUser(UserLoginAndDeleteRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new ResourceNotFoundException("user with this email does not exists.\n enter a valid email."));
-
-        if (!request.getPassword().equals(user.getPassword())) {
-            throw new IllegalArgumentException("Invalid Password");
-        }
-        return new UserResponse(
-                user.getUsername(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getPhoneNumber()
-        );
-    }
-
     @Transactional
     public UserUpdatedResponse updateUsername(UserUpdateUsernameRequest request) {
         User user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ResourceNotFoundException("User with this username does not exists.\nEnter a valid username.\n"));
@@ -89,7 +74,7 @@ public class UserService {
     }
 
     @Transactional
-    public boolean deleteUser(UserLoginAndDeleteRequest request) {
+    public boolean deleteUser(userDeleteRequest request) {
 
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow(()-> new ResourceNotFoundException("No user with this username is available.\nEnter a valid email."));
 

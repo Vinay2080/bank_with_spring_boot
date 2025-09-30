@@ -32,12 +32,6 @@ public class UserController {
         return ResponseUtility.success("user registered successfully ", HttpStatus.CREATED, savedUser);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<ApiResponse<UserResponse>> loginUser(@RequestBody UserLoginAndDeleteRequest request) {
-        UserResponse loggedInUser = service.loginUser(request);
-        return ResponseUtility.success("user logged in successfully", HttpStatus.ACCEPTED, loggedInUser);
-    }
-
     @PutMapping("/update/Username")
     public ResponseEntity<ApiResponse<UserUpdatedResponse>> updateUsername(@RequestBody UserUpdateUsernameRequest request) {
         UserUpdatedResponse updatedUsername = service.updateUsername(request);
@@ -58,7 +52,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ApiResponse<Object>> deleteUser(@RequestBody UserLoginAndDeleteRequest request) {
+    public ResponseEntity<ApiResponse<Object>> deleteUser(@RequestBody userDeleteRequest request) {
         boolean accountDeleted = service.deleteUser(request);
         if (!accountDeleted) {
             return ResponseUtility.error("Account not found", HttpStatus.NOT_FOUND);
