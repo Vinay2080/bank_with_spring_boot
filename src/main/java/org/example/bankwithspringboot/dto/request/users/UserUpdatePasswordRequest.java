@@ -30,4 +30,10 @@ public class UserUpdatePasswordRequest {
             message = "Password must contain at least one letter and one number")
     @Size(min = 4, max = 20, message = "minimum size of password should be 4")
     private String newPassword;
+
+    @NotBlank(message = "should contain a password, field cannot be blank")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]*$",
+            message = "Password must contain at least one letter and one number")
+    @Size(min = 4, max = 20, message = "minimum size of password should be 4")
+    private String newPassword2;
 }

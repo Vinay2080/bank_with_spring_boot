@@ -23,12 +23,15 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    // controller to create an account
+    // stores password and username to a database for further use by spring security
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<AccountResponse>> createAccount(@Valid @RequestBody AccountCreateRequest request) {
         AccountResponse accountResponse = accountService.createAccount(request);
         return ResponseUtility.success("Account created successfully", HttpStatus.CREATED, accountResponse);
     }
 
+    // a user can get a list of all his accounts
     @GetMapping("/get/all_accounts")
     public ResponseEntity<ApiResponse<List<AccountResponse>>> getAllAccounts() {
         List<AccountResponse> list = accountService.getAllAccounts();
@@ -41,6 +44,8 @@ public class AccountController {
         return ResponseUtility.success("account fetched successfully",HttpStatus.FOUND, response);
     }
 
+    // here we don't delete an account as it will lead to deletion of transaction which will cause calculation errors bank
+    // the account is set as closed status instead
     @DeleteMapping("/delete")
     public ResponseEntity<ApiResponse<Object>> deleteAccount(@Valid @RequestBody AccountNumberRequest request) {
         boolean accountDeleted = accountService.removeAccount(request);

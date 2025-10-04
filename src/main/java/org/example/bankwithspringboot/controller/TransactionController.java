@@ -23,12 +23,10 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
+    // for transaction between two accounts
     @PostMapping("/transferMoney")
-    public ResponseEntity<ApiResponse<Object>> transferMoney(@Valid @RequestBody TransactionRequest request){
-        boolean status = transactionService.transferMoney(request);
-        if (!status){
-            return ResponseUtility.error("Server down", HttpStatus.BAD_REQUEST);
-        }
-        return ResponseUtility.success("Transaction successful", HttpStatus.OK, null);
+    public ResponseEntity<ApiResponse<TransactionResponse>> transferMoney(@Valid @RequestBody TransactionRequest request) {
+        TransactionResponse response = transactionService.transferMoney(request);
+        return ResponseUtility.success("Transaction successful", HttpStatus.OK, response);
     }
 }

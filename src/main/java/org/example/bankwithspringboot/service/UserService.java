@@ -7,6 +7,7 @@ import org.example.bankwithspringboot.dto.response.users.UserResponse;
 import org.example.bankwithspringboot.dto.response.users.UserUpdatedResponse;
 import org.example.bankwithspringboot.enums.UserStatus;
 import org.example.bankwithspringboot.exception.ResourceNotFoundException;
+import org.example.bankwithspringboot.mapper.UserMapper;
 import org.example.bankwithspringboot.model.User;
 import org.example.bankwithspringboot.repository.UserRepository;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,37 +21,31 @@ public class UserService {
     // user new password and old password must not be the same applied for all of them.
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     @Transactional
     public UserResponse registerUser(UserRegisterRequest request) {
 
-        User user = new User();
+        User user = userMapper.dtoToUserRegister(request);
 
-        user.setName(request.getName());
-        user.setUsername(request.getUsername());
-        user.setPhoneNumber(request.getPhoneNumber());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setEmail(request.getEmail());
 
-        user.getAccounts().forEach(account -> account.setUser(user));
-        User saved = userRepository.save(user);
-        return new UserResponse(saved.getName(), saved.getUsername(), saved.getPhoneNumber(), saved.getEmail());
+        userRepository.save(user);
+        return userMapper.entityToUserResponse(user);
     }
 
     @Transactional
     public UserUpdatedResponse updateUsername(UserUpdateUsernameRequest request) {
         User user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ResourceNotFoundException("User with this username does not exists.\nEnter a valid username.\n"));
-        user.setUsername(request.getNewUsername());
 
-        return new UserUpdatedResponse(
-                user.getUsername(),
-                user.getEmail()
-        );
+        userMapper.dtoToUsernameUpdate(request, user);
+        return userMapper.entityUserUpdateResponse(user);
     }
 
     @Transactional
@@ -58,24 +53,22 @@ public class UserService {
 
         User user = userRepository.findByEmail(request.getOldEmail()).orElseThrow(() -> new ResourceNotFoundException("User with this email does not exists.\nEnter a valid email"));
 
-        user.setEmail(request.getNewEmail());
-        return new UserUpdatedResponse(
-                user.getUsername(),
-                user.getEmail()
-        );
+        userMapper.dtoToEmailUpdate(request, user);
+
+        return userMapper.entityUserUpdateResponse(user);
     }
 
     @Transactional
     public UserUpdatedResponse updatePassword(UserUpdatePasswordRequest request) {
         User user = userRepository.findByUsername(request.getUsername()).orElseThrow(() -> new ResourceNotFoundException("user with this username does not exists.\nEnter a valid email"));
-        if (!user.getPassword().equals(request.getOldPassword())) {
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
             throw new IllegalArgumentException("old password does not match.");
         }
-        user.setPassword(request.getNewPassword());
-        return new UserUpdatedResponse(
-                user.getUsername(),
-                user.getEmail()
-        );
+        if (!request.getNewPassword().equals(request.getNewPassword2())) {
+            throw new IllegalArgumentException("the password does not match with above password");
+        }
+        userMapper.dtoToPasswordUpdate(request, user);
+        return userMapper.entityUserUpdateResponse(user);
     }
 
     @Transactional
@@ -85,7 +78,7 @@ public class UserService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("Incorrect Password");
         }
-        if(user.getStatus() == UserStatus.INACTIVE){
+        if (user.getStatus() == UserStatus.INACTIVE) {
             return false;
         }
         user.setStatus(UserStatus.INACTIVE);

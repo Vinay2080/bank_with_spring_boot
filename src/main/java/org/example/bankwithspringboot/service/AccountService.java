@@ -7,6 +7,7 @@ import org.example.bankwithspringboot.dto.response.accounts.AccountResponse;
 import org.example.bankwithspringboot.enums.AccountStatus;
 import org.example.bankwithspringboot.exception.ResourceAlreadyExistsException;
 import org.example.bankwithspringboot.exception.ResourceNotFoundException;
+import org.example.bankwithspringboot.mapper.AccountMapper;
 import org.example.bankwithspringboot.model.Account;
 import org.example.bankwithspringboot.model.User;
 import org.example.bankwithspringboot.repository.AccountRepository;
@@ -23,11 +24,13 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AccountMapper accountMapper;
 
-    public AccountService(AccountRepository accountRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AccountService(AccountRepository accountRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, AccountMapper accountMapper) {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.accountMapper = accountMapper;
     }
 
     @Transactional
@@ -39,19 +42,12 @@ public class AccountService {
         if (accountRepository.findAccountByAccountNumber(accountNumber).isPresent()) {
             throw new ResourceAlreadyExistsException("Account with this account number already exits.");
         }
-        Account account = new Account();
-        account.setAccountType(request.getAccountType());
+        Account account = accountMapper.dtoToCreateAccount(request);
         account.setAccountNumber(accountNumber);
-        account.setBalance(request.getInitialBalance() != null ? request.getInitialBalance() : 0.0);
-        account.setUser(user);
         account.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        Account saved = accountRepository.save(account);
-        return new AccountResponse(
-                saved.getAccountNumber(),
-                saved.getBalance(),
-                saved.getAccountType()
-        );
+        user.addAccount(account);
+        accountRepository.save(account);
+        return accountMapper.entityToResponse(account);
     }
 
     public List<AccountResponse> getAllAccounts() {
@@ -61,13 +57,7 @@ public class AccountService {
         if (accounts.isEmpty()) {
             throw new ResourceNotFoundException("no accounts found");
         }
-        return accountRepository.findAll()
-                .stream()
-                .map(account -> new AccountResponse(
-                        account.getAccountNumber(),
-                        account.getBalance(),
-                        account.getAccountType()))
-                .toList();
+        return accountMapper.entityToListOfAccountResponse(accounts);
     }
 
     public AccountResponse findAccountByAccountNumber(AccountNumberRequest request) {
@@ -78,10 +68,7 @@ public class AccountService {
         if (account.getAccountStatus() == AccountStatus.CLOSED) {
             throw new ResourceNotFoundException("This account is closed");
         }
-        return new AccountResponse
-                (account.getAccountNumber(),
-                        account.getBalance(),
-                        account.getAccountType());
+        return accountMapper.entityToResponse(account);
     }
 
     @Transactional

@@ -18,11 +18,9 @@ public class UserRegisterRequest {
     @Size(min = 2, max = 100, message = "name must be between 4 to 100 letters")
     private String name;
 
-    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]*$", message = "Username must start with a letter and can only contain letters, numbers, and underscores")
     @NotBlank(message = "should contain a username, field cannot be blank")
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]*$",
-            message = "Password must contain at least one letter and one number")
-    @Size(min = 4, max = 20, message = "minimum size of password should be 4")
+    @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]*$", message = "Username must start with a letter and can only contain letters, numbers, and underscores")
+    @Size(min = 2, max = 100, message = "name must be between 4 to 100 letters")
     private String username;
 
     @NotBlank(message = "should contain a password, field cannot be blank")
