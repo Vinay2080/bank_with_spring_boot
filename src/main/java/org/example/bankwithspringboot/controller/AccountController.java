@@ -50,7 +50,7 @@ public class AccountController {
     public ResponseEntity<ApiResponse<Object>> deleteAccount(@Valid @RequestBody AccountNumberRequest request) {
         boolean accountDeleted = accountService.removeAccount(request);
         if (accountDeleted) {
-            return ResponseUtility.success("amount credited successfully", HttpStatus.OK, null);
+            return ResponseUtility.success("amount deleted successfully", HttpStatus.OK, null);
         }
         return ResponseUtility.error("account not found", HttpStatus.NOT_FOUND);
     }
