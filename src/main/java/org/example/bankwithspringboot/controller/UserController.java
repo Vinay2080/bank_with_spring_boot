@@ -3,8 +3,10 @@ package org.example.bankwithspringboot.controller;
 import lombok.Getter;
 import org.example.bankwithspringboot.dto.apiResponse.ApiResponse;
 import org.example.bankwithspringboot.dto.apiResponse.ResponseUtility;
-import org.example.bankwithspringboot.dto.request.users.*;
-import org.example.bankwithspringboot.dto.response.users.UserResponse;
+import org.example.bankwithspringboot.dto.request.users.UserUpdateEmailRequest;
+import org.example.bankwithspringboot.dto.request.users.UserUpdatePasswordRequest;
+import org.example.bankwithspringboot.dto.request.users.UserUpdateUsernameRequest;
+import org.example.bankwithspringboot.dto.request.users.userDeleteRequest;
 import org.example.bankwithspringboot.dto.response.users.UserUpdatedResponse;
 import org.example.bankwithspringboot.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -25,13 +27,6 @@ public class UserController {
     // add get al users
     //  by name
     // login by phone number
-
-    @PostMapping("/register")
-    public ResponseEntity<ApiResponse<Object>> registerUser(@RequestBody UserRegisterRequest request) {
-        UserResponse savedUser = service.registerUser(request);
-        return ResponseUtility.success("user registered successfully ", HttpStatus.CREATED, savedUser);
-    }
-
     @PutMapping("/update/Username")
     public ResponseEntity<ApiResponse<UserUpdatedResponse>> updateUsername(@RequestBody UserUpdateUsernameRequest request) {
         UserUpdatedResponse updatedUsername = service.updateUsername(request);

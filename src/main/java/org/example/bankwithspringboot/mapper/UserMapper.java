@@ -1,10 +1,8 @@
 package org.example.bankwithspringboot.mapper;
 
-import org.example.bankwithspringboot.dto.request.users.UserRegisterRequest;
 import org.example.bankwithspringboot.dto.request.users.UserUpdateEmailRequest;
 import org.example.bankwithspringboot.dto.request.users.UserUpdatePasswordRequest;
 import org.example.bankwithspringboot.dto.request.users.UserUpdateUsernameRequest;
-import org.example.bankwithspringboot.dto.response.users.UserResponse;
 import org.example.bankwithspringboot.dto.response.users.UserUpdatedResponse;
 import org.example.bankwithspringboot.model.User;
 import org.mapstruct.Mapper;
@@ -14,19 +12,8 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    // registration request
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "timeStamp", ignore = true)
-    @Mapping(target = "status", ignore = true)
-    @Mapping(target = "stakeholder", ignore = true)
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "accounts", ignore = true)
-    User dtoToUserRegister(UserRegisterRequest request);
-
-    // registration response
-    UserResponse entityToUserResponse(User user);
-
     // update username
+    @Mapping(target = "authorities", ignore = true)
     @Mapping(source = "newUsername", target = "username")
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "timeStamp", ignore = true)
@@ -40,6 +27,7 @@ public interface UserMapper {
     @Mapping(target = "accounts", ignore = true)
     void dtoToUsernameUpdate(UserUpdateUsernameRequest request, @MappingTarget User user);
 
+    @Mapping(target = "authorities", ignore = true)
     @Mapping(target = "username", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "timeStamp", ignore = true)
@@ -53,6 +41,7 @@ public interface UserMapper {
     @Mapping(target = "accounts", ignore = true)
     void dtoToEmailUpdate(UserUpdateEmailRequest request, @MappingTarget User user);
 
+    @Mapping(target = "authorities", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "timeStamp", ignore = true)
     @Mapping(target = "status", ignore = true)

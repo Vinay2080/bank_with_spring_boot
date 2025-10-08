@@ -2,8 +2,10 @@ package org.example.bankwithspringboot.service;
 
 import jakarta.transaction.Transactional;
 import lombok.Getter;
-import org.example.bankwithspringboot.dto.request.users.*;
-import org.example.bankwithspringboot.dto.response.users.UserResponse;
+import org.example.bankwithspringboot.dto.request.users.UserUpdateEmailRequest;
+import org.example.bankwithspringboot.dto.request.users.UserUpdatePasswordRequest;
+import org.example.bankwithspringboot.dto.request.users.UserUpdateUsernameRequest;
+import org.example.bankwithspringboot.dto.request.users.userDeleteRequest;
 import org.example.bankwithspringboot.dto.response.users.UserUpdatedResponse;
 import org.example.bankwithspringboot.enums.UserStatus;
 import org.example.bankwithspringboot.exception.ResourceNotFoundException;
@@ -27,17 +29,6 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
-    }
-
-    @Transactional
-    public UserResponse registerUser(UserRegisterRequest request) {
-
-        User user = userMapper.dtoToUserRegister(request);
-
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-
-        userRepository.save(user);
-        return userMapper.entityToUserResponse(user);
     }
 
     @Transactional

@@ -1,4 +1,4 @@
-package org.example.bankwithspringboot.dto.request.users;
+package org.example.bankwithspringboot.dto.request.Authentications;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class UserRegisterRequest {
+public class AuthRequest {
     @NotBlank(message = "should contain a name, field cannot be blank")
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Name can only contain letters and spaces")
     @Size(min = 2, max = 100, message = "name must be between 4 to 100 letters")
@@ -34,6 +34,6 @@ public class UserRegisterRequest {
     private String email;
 
     @NotBlank(message = "should contain a phone number, field cannot be blank")
-    @Pattern(regexp = "^[1-9]\\\\d{9}$", message = "phone number should only consists of 10 digits")
+    @Pattern(regexp = "^[1-9]\\d{9}$", message = "Phone number must be 10 digits and cannot start with 0")
     private String phoneNumber;
 }
