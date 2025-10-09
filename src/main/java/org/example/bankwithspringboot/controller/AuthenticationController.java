@@ -6,7 +6,6 @@ import org.example.bankwithspringboot.dto.apiResponse.ResponseUtility;
 import org.example.bankwithspringboot.dto.request.Authentications.AuthLoginRequest;
 import org.example.bankwithspringboot.dto.request.Authentications.AuthRegisterRequest;
 import org.example.bankwithspringboot.dto.response.Authentications.AuthResponse;
-import org.example.bankwithspringboot.repository.UserRepository;
 import org.example.bankwithspringboot.service.AuthenticationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

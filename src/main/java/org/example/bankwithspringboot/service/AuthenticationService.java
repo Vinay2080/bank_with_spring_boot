@@ -1,6 +1,5 @@
 package org.example.bankwithspringboot.service;
 
-import org.example.bankwithspringboot.dto.apiResponse.ResponseUtility;
 import org.example.bankwithspringboot.dto.request.Authentications.AuthLoginRequest;
 import org.example.bankwithspringboot.dto.request.Authentications.AuthRegisterRequest;
 import org.example.bankwithspringboot.dto.response.Authentications.AuthResponse;
@@ -9,12 +8,11 @@ import org.example.bankwithspringboot.exception.ResourceNotFoundException;
 import org.example.bankwithspringboot.mapper.AuthenticationMapper;
 import org.example.bankwithspringboot.model.User;
 import org.example.bankwithspringboot.repository.UserRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
