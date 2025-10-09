@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class AuthRequest {
+public class AuthRegisterRequest {
     @NotBlank(message = "should contain a name, field cannot be blank")
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "Name can only contain letters and spaces")
     @Size(min = 2, max = 100, message = "name must be between 4 to 100 letters")
