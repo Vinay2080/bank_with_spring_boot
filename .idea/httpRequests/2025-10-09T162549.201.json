@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "message": "Account created successfully",
+  "data": {
+    "accountNumber": "202531809855",
+    "balance": 10000.0,
+    "accountType": "SAVINGS"
+  },
+  "localDateTime": "09-10-2025 16:25:49"
+}

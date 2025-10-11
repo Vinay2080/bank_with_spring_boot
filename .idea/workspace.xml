@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ca540a38-3ea0-4ca6-984e-7f0e806f9055" name="Changes" comment="added map struct for mapping DTOs with Entities and vice versa. Which helped to reduce boilerplate in the service layer.">
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-09-18T231510.200.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-09-18T231511.200.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-09-18T231515.200.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-09-18T231518.200.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-07T132110-2.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-07T132110-3.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-07T132110-4.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-07T132110.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-08T233712.404.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-08T233806.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-08T233822.303.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T010449.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T010742.200.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T011257.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T011319.404.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T011327.200.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T011518.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T011536.200.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T011549.200.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162043.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162227.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162234.200.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162324.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162328.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162329.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162423.303.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162532.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162544.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162549.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162550.201.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/2025-10-09T162713.303.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/http-client.cookies" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/BankWithSpringBootApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/RestaurantProject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/configurations/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/configurations/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/configurations/PasswordConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/configurations/PasswordConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/configurations/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/configurations/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/controller/AccountController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/controller/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/controller/TransactionController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/apiResponse/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/dto/apiResponse/ApiResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/apiResponse/ResponseUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/dto/apiResponse/ResponseUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/request/Authentications/AuthLoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/dto/request/Authentications/AuthenticationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/request/Authentications/AuthRegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/dto/request/Authentications/AuthRegisterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/request/accounts/AccountCreateRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/request/accounts/AccountNumberRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/request/transactions/TransactionRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/request/users/UserUpdateEmailRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/dto/request/users/UserUpdateEmailRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/request/users/UserUpdatePasswordRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/dto/request/users/UserUpdatePasswordRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/request/users/UserUpdateUsernameRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/dto/request/users/UserUpdateUsernameRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/request/users/userDeleteRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/dto/request/users/userDeleteRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/response/Authentications/AuthResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/dto/response/Authentications/AuthResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/response/accounts/AccountResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/response/transaction/TransactionResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/dto/response/users/UserUpdatedResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/dto/response/users/UserUpdatedResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/enums/AccountStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/enums/AccountType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/enums/Stakeholder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/enums/Stakeholder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/enums/UserStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/enums/UserStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/exception/ResourceAlreadyExistsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/exception/ResourceAlreadyExistsException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/exception/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/exception/ResourceNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/mapper/AccountMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/mapper/AuthenticationMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/mapper/AuthenticationMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/model/Account.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/model/Transaction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/repository/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/repository/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/repository/TransactionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/service/AccountService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/service/AppUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/service/AppUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/service/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/service/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/service/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/service/JwtServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/service/JwtServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/service/TransactionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/restaurantProject/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/resourse.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/endpoint-tester.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/bankwithspringboot/BankWithSpringBootApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/restaurantProject/RestaurantProjectTests.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="printScope" value="1" />
+    <option name="PRINT_LINE_NUMBERS" value="true" />
+    <option name="OPEN_IN_BROWSER" value="true" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="HTTP Public Environment File" />
+        <option value="Exception" />
+        <option value="Enum" />
+        <option value="com.intellij.jpb.NewInterface" />
+        <option value="Class" />
+        <option value="Interface" />
+        <option value="com.intellij.jpb.NewClass" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <branch-grouping />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SIGN_OFF_COMMIT" value="true" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Vinay2080&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Vinay2080/bank_with_spring_boot.git&quot;,
+    &quot;accountId&quot;: &quot;e6259b00-1717-4a1c-b33c-fa9a90653dc3&quot;
+  }
+}</component>
+  <component name="HttpClientEndpointsTabState">
+    <option name="cachedRequestData" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;fc95a58c1811099b5ec95bf9d49f77f774881d8f&quot; value=&quot;###&amp;#10;PUT http://localhost:8080/api/user/update/Username&amp;#10;Content-Type: application/json&amp;#10;Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNzE4LCJleHAiOjE3NTk5NTYzMTh9.CN7ynT_DVc_iQXwt8VbFXQJjLAVM9UwMfUquHinKxaE&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;username&amp;quot;: &amp;quot;user0011&amp;quot;,&amp;#10;  &amp;quot;newUsername&amp;quot;: &amp;quot;user001&amp;quot;&amp;#10;}&quot; /&gt;&#10;  &lt;entry key=&quot;a114efa3299c9c23237f8a7f3a5685c31afa47f4&quot; value=&quot;###&amp;#10;DELETE http://localhost:8080/api/accounts/delete&amp;#10;Content-Type: application/json&amp;#10;Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAyIiwiaWF0IjoxNzYwMDI5NjE2LCJleHAiOjE3NjAwMzMyMTZ9.J5x0PyBTZlqsOrMNSMmo7Ixa58Eu3VVNQyucj3lZOvw&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;accountNumber&amp;quot;: &amp;quot;202501492691&amp;quot;,&amp;#10;  &amp;quot;password&amp;quot;: &amp;quot;1112&amp;quot;&amp;#10;}&quot; /&gt;&#10;  &lt;entry key=&quot;b32dc2f05879f031541f9b52c096fbb0f200549c&quot; value=&quot;###&amp;#10;POST http://localhost:8080/api/accounts/create&amp;#10;Content-Type: application/json&amp;#10;Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAyIiwiaWF0IjoxNzYwMDcxMTc4LCJleHAiOjE3NjAwNzQ3Nzh9.-a0tQNBrofzrNi7EjxO1kBcfrY12H3dPrdwQMhrr81Y&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;initialBalance&amp;quot;: 10000,&amp;#10;  &amp;quot;userId&amp;quot;: 1,&amp;#10;  &amp;quot;accountType&amp;quot;: &amp;quot;SAVINGS&amp;quot;,&amp;#10;  &amp;quot;password&amp;quot;: &amp;quot;1112&amp;quot;&amp;#10;}&quot; /&gt;&#10;  &lt;entry key=&quot;ba30ae757718cb2cc68f285d56aa8d65dcb866e6&quot; value=&quot;###&amp;#10;PUT http://localhost:8080/api/user/update/email&amp;#10;Content-Type: application/json&amp;#10;Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNzE4LCJleHAiOjE3NTk5NTYzMTh9.CN7ynT_DVc_iQXwt8VbFXQJjLAVM9UwMfUquHinKxaE&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;oldEmail&amp;quot;: &amp;quot;user0001@gmail.com&amp;quot;,&amp;#10;  &amp;quot;newEmail&amp;quot;: &amp;quot;user001@gmail.com&amp;quot;&amp;#10;}&quot; /&gt;&#10;  &lt;entry key=&quot;9806795a712cb48b0dc4c6256cd05795ca2280b1&quot; value=&quot;###&amp;#10;GET http://localhost:8080/api/accounts/get/all_accounts&amp;#10;Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAyIiwiaWF0IjoxNzYwMDA3MzMyLCJleHAiOjE3NjAwMTA5MzJ9.y8VIIJ09juqOpz4YOdCbGD_jWFJRvnhL4GVa-BJznfc&quot; /&gt;&#10;  &lt;entry key=&quot;43be82a9744d46f4943222a158e9bbda00f3ce1f&quot; value=&quot;###&amp;#10;POST http://localhost:8080/api/auth/register&amp;#10;Content-Type: application/json&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;username&amp;quot;: &amp;quot;user002&amp;quot;,&amp;#10;  &amp;quot;password&amp;quot;: &amp;quot;user002&amp;quot;&amp;#10;}&quot; /&gt;&#10;  &lt;entry key=&quot;34299b6ca0dbe151f27919d4a54fea0d31d01b4b&quot; value=&quot;###&amp;#10;POST http://localhost:8080/api/auth/login&amp;#10;Content-Type: application/json&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;username&amp;quot;: &amp;quot;user002&amp;quot;,&amp;#10;  &amp;quot;password&amp;quot;: &amp;quot;user002&amp;quot;&amp;#10;}&quot; /&gt;&#10;  &lt;entry key=&quot;6af1a96d480ecfb847d0d75f69da9fc83a1f55cc&quot; value=&quot;###&amp;#10;PUT http://localhost:8080/api/user/update/password&amp;#10;Content-Type: application/json&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;username&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;oldPassword&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;newPassword&amp;quot;: &amp;quot;&amp;quot;,&amp;#10;  &amp;quot;newPassword2&amp;quot;: &amp;quot;&amp;quot;&amp;#10;}&quot; /&gt;&#10;  &lt;entry key=&quot;6db84f5e5d22cfa2a0b75dae41d2a04ca391d363&quot; value=&quot;###&amp;#10;GET http://localhost:8080/api/accounts/get/by_account_number&amp;#10;Content-Type: application/json&amp;#10;Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzYwMDA3MTU0LCJleHAiOjE3NjAwMTA3NTR9.xMDpDXOTDVMmFKKxSiNGX6yjABR_TSjDn2I0f_Gnljw&amp;#10;&amp;#10;{&amp;#10;  &amp;quot;accountNumber&amp;quot;: &amp;quot;202500548404&amp;quot;,&amp;#10;  &amp;quot;password&amp;quot;: &amp;quot;1112&amp;quot;&amp;#10;}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
+  </component>
+  <component name="HttpClientOnboardingState">{
+  &quot;isOnboardingCommentShown&quot;: true
+}</component>
+  <component name="HttpClientSelectedEnvironments">
+    <file url="file://$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" environment="" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="323vlrs4NqxKcabyDuBrJafNYPz" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Downloaded.Files.Path.Enabled": "false",
+    "HTTP Request.bank_with_spring_boot-endpoints | #1.executor": "Run",
+    "HTTP Request.generated-requests | #1.executor": "Run",
+    "HTTP Request.generated-requests | #3.executor": "Run",
+    "HTTP Request.generated-requests | #4.executor": "Run",
+    "JUnit.EndpointIntegrationTest.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.BankWithSpringBootApplication.executor": "Run",
+    "Spring Boot.RestaurantProject.executor": "Run",
+    "database.data.extractors.current.export.id": "JSON-Groovy.json.groovy",
+    "database.data.extractors.current.id": "JSON-Groovy.json.groovy",
+    "git-widget-placeholder": "security-for-mini-project",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.example.bankwithspringboot.enums" />
+      <recent name="org.example.bankwithspringboot.dto.request.transactions" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="bank_with_spring_boot-endpoints | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/bank_with_spring_boot-endpoints.http" executionIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#3" index="3" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#4" index="4" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="EndpointIntegrationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="bank-with-spring-boot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.restaurantProject.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.bankwithspringboot" />
+      <option name="MAIN_CLASS_NAME" value="org.example.bankwithspringboot.EndpointIntegrationTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RestaurantProject" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="bank-with-spring-boot" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.restaurantProject.RestaurantProject" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.EndpointIntegrationTest" />
+        <item itemvalue="HTTP Request.generated-requests | #4" />
+        <item itemvalue="HTTP Request.generated-requests | #3" />
+        <item itemvalue="HTTP Request.bank_with_spring_boot-endpoints | #1" />
+        <item itemvalue="JUnit.EndpointIntegrationTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Physical" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ca540a38-3ea0-4ca6-984e-7f0e806f9055" name="Changes" comment="" />
+      <created>1756662229180</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1756662229180</updated>
+      <workItem from="1756662229957" duration="954000" />
+      <workItem from="1756702863076" duration="28000" />
+      <workItem from="1756702906955" duration="3795000" />
+      <workItem from="1756722160218" duration="2013000" />
+      <workItem from="1756798428698" duration="345000" />
+      <workItem from="1756799082055" duration="1169000" />
+      <workItem from="1756832768552" duration="404000" />
+      <workItem from="1756833319708" duration="2109000" />
+      <workItem from="1756873934792" duration="1554000" />
+      <workItem from="1756899325021" duration="6138000" />
+      <workItem from="1756905633373" duration="259000" />
+      <workItem from="1756906005573" duration="143000" />
+      <workItem from="1756917621794" duration="5296000" />
+      <workItem from="1756981228268" duration="89000" />
+      <workItem from="1756981342142" duration="346000" />
+      <workItem from="1756984348993" duration="1046000" />
+      <workItem from="1757002301483" duration="4509000" />
+      <workItem from="1757007084954" duration="470000" />
+      <workItem from="1757010108875" duration="148000" />
+      <workItem from="1757051844523" duration="624000" />
+      <workItem from="1757085585018" duration="1011000" />
+      <workItem from="1757092454491" duration="604000" />
+      <workItem from="1757094272514" duration="66000" />
+      <workItem from="1757165502416" duration="9000" />
+      <workItem from="1757177359981" duration="3166000" />
+      <workItem from="1757180780821" duration="1868000" />
+      <workItem from="1757182713790" duration="146000" />
+      <workItem from="1757260694588" duration="669000" />
+      <workItem from="1757305688504" duration="4120000" />
+      <workItem from="1757310080422" duration="610000" />
+      <workItem from="1757322920243" duration="3149000" />
+      <workItem from="1757343321315" duration="46000" />
+      <workItem from="1757350977350" duration="1179000" />
+      <workItem from="1757397449807" duration="42000" />
+      <workItem from="1757398771181" duration="751000" />
+      <workItem from="1757416648363" duration="2097000" />
+      <workItem from="1757430691613" duration="282000" />
+      <workItem from="1757431005735" duration="2272000" />
+      <workItem from="1757435498072" duration="1549000" />
+      <workItem from="1757477518502" duration="210000" />
+      <workItem from="1757477749348" duration="2634000" />
+      <workItem from="1757481648666" duration="2233000" />
+      <workItem from="1757496099132" duration="5000" />
+      <workItem from="1757524350471" duration="2143000" />
+      <workItem from="1757526612365" duration="1128000" />
+      <workItem from="1757603633662" duration="724000" />
+      <workItem from="1757607814893" duration="7357000" />
+      <workItem from="1757691799649" duration="8138000" />
+      <workItem from="1757772900645" duration="5046000" />
+      <workItem from="1757781357747" duration="5441000" />
+      <workItem from="1757786952353" duration="2182000" />
+      <workItem from="1757789191177" duration="1345000" />
+      <workItem from="1757830320375" duration="7582000" />
+      <workItem from="1757950701098" duration="9221000" />
+      <workItem from="1757997173827" duration="385000" />
+      <workItem from="1758004378254" duration="2053000" />
+      <workItem from="1758020729563" duration="1812000" />
+      <workItem from="1758037777078" duration="5863000" />
+      <workItem from="1758085525196" duration="1111000" />
+      <workItem from="1758092968252" duration="4005000" />
+      <workItem from="1758101827154" duration="5447000" />
+      <workItem from="1758132297196" duration="1006000" />
+      <workItem from="1758169574668" duration="721000" />
+      <workItem from="1758210037593" duration="10423000" />
+      <workItem from="1758266519524" duration="3201000" />
+      <workItem from="1758271748575" duration="2135000" />
+      <workItem from="1758281779007" duration="182000" />
+      <workItem from="1758300855281" duration="795000" />
+      <workItem from="1758301752772" duration="447000" />
+      <workItem from="1758302219525" duration="7990000" />
+      <workItem from="1758310461802" duration="529000" />
+      <workItem from="1758362629113" duration="2185000" />
+      <workItem from="1758365109317" duration="2349000" />
+      <workItem from="1758368705780" duration="3787000" />
+      <workItem from="1758388132921" duration="2741000" />
+      <workItem from="1758392755121" duration="901000" />
+      <workItem from="1758469721015" duration="1294000" />
+      <workItem from="1758471039256" duration="2241000" />
+      <workItem from="1758519661996" duration="48000" />
+      <workItem from="1758563011008" duration="41000" />
+      <workItem from="1758643605587" duration="4209000" />
+      <workItem from="1758728942972" duration="3400000" />
+      <workItem from="1758733742201" duration="5136000" />
+      <workItem from="1758820275764" duration="3626000" />
+      <workItem from="1758882354485" duration="632000" />
+      <workItem from="1758903011278" duration="567000" />
+      <workItem from="1758904797598" duration="2449000" />
+      <workItem from="1758981736005" duration="3928000" />
+      <workItem from="1759031685949" duration="1621000" />
+      <workItem from="1759062002559" duration="960000" />
+      <workItem from="1759119119881" duration="568000" />
+      <workItem from="1759122903610" duration="1058000" />
+      <workItem from="1759239950475" duration="7306000" />
+      <workItem from="1759247319576" duration="3865000" />
+      <workItem from="1759251217709" duration="3427000" />
+      <workItem from="1759254712857" duration="495000" />
+      <workItem from="1759255231933" duration="1884000" />
+      <workItem from="1759308336017" duration="3589000" />
+      <workItem from="1759312255743" duration="1349000" />
+      <workItem from="1759336083103" duration="3786000" />
+      <workItem from="1759342267240" duration="1266000" />
+      <workItem from="1759395941590" duration="10000" />
+      <workItem from="1759458216460" duration="2582000" />
+      <workItem from="1759508693014" duration="543000" />
+      <workItem from="1759590383527" duration="2984000" />
+      <workItem from="1759593412312" duration="3010000" />
+      <workItem from="1759597109153" duration="54000" />
+      <workItem from="1759597178842" duration="10760000" />
+      <workItem from="1759608089315" duration="36000" />
+      <workItem from="1759608139348" duration="3000" />
+      <workItem from="1759641766047" duration="76000" />
+      <workItem from="1759641860924" duration="2099000" />
+      <workItem from="1759646208469" duration="411000" />
+      <workItem from="1759646640851" duration="2318000" />
+      <workItem from="1759672233567" duration="360000" />
+      <workItem from="1759673309913" duration="213000" />
+      <workItem from="1759673920902" duration="2107000" />
+      <workItem from="1759681110293" duration="21000" />
+      <workItem from="1759683051217" duration="388000" />
+      <workItem from="1759767966152" duration="18000" />
+      <workItem from="1759812184820" duration="103000" />
+      <workItem from="1759815762099" duration="689000" />
+      <workItem from="1759818906748" duration="1474000" />
+      <workItem from="1759821488028" duration="301000" />
+      <workItem from="1759822069762" duration="2342000" />
+      <workItem from="1759852593221" duration="8066000" />
+      <workItem from="1759915579415" duration="1617000" />
+      <workItem from="1759919298337" duration="3556000" />
+      <workItem from="1759938876737" duration="9234000" />
+      <workItem from="1759951992544" duration="2225000" />
+      <workItem from="1760003078164" duration="43000" />
+      <workItem from="1760003135741" duration="4529000" />
+      <workItem from="1760007887790" duration="645000" />
+      <workItem from="1760027154884" duration="374000" />
+      <workItem from="1760027544643" duration="3051000" />
+      <workItem from="1760032104219" duration="816000" />
+      <workItem from="1760070521297" duration="715000" />
+      <workItem from="1760088016482" duration="10000" />
+      <workItem from="1760090504792" duration="2254000" />
+      <workItem from="1760115019243" duration="3075000" />
+      <workItem from="1760165650061" duration="1354000" />
+    </task>
+    <task id="LOCAL-00001" summary="added map struct for mapping DTOs with Entities and vice versa. Which helped to reduce boilerplate in the service layer.">
+      <option name="closed" value="true" />
+      <created>1759607382220</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1759607382220</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="b76afb04-5587-46b7-b2cf-d09fb4f9c058" value="TOOL_WINDOW" />
+        <entry key="72cb8d9f-fb29-445c-a5f7-1c82740c6267" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="72cb8d9f-fb29-445c-a5f7-1c82740c6267">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/Users/shaki/IdeaProjects/bank-with-spring-boot/.idea" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="b76afb04-5587-46b7-b2cf-d09fb4f9c058">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="file:$PROJECT_DIR$/src/main/java/org/example/bankwithspringboot/service/AccountService.java" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added map struct for mapping DTOs with Entities and vice versa. Which helped to reduce boilerplate in the service layer." />
+    <option name="LAST_COMMIT_MESSAGE" value="added map struct for mapping DTOs with Entities and vice versa. Which helped to reduce boilerplate in the service layer." />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

@@ -1,0 +1,881 @@
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+Content-Length: 52
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user002",
+  "password": "user002"
+}
+
+<> 2025-10-11T124932.200.json
+
+###
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+Content-Length: 52
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user002",
+  "password": "user002"
+}
+
+<> 2025-10-11T124929.201.json
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAyIiwiaWF0IjoxNzYwMDcxMTc4LCJleHAiOjE3NjAwNzQ3Nzh9.-a0tQNBrofzrNi7EjxO1kBcfrY12H3dPrdwQMhrr81Y
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 10000,
+  "userId": 1,
+  "accountType": "SAVINGS",
+  "password": "1112"
+}
+
+<> 2025-10-10T100958.201.json
+
+###
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+Content-Length: 52
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user002",
+  "password": "user002"
+}
+
+<> 2025-10-10T100938.200.json
+
+###
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+Content-Length: 52
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user002",
+  "password": "user002"
+}
+
+<> 2025-10-10T100933.201.json
+
+###
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+Content-Length: 52
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user002",
+  "password": "user002"
+}
+
+<> 2025-10-10T100807.400.json
+
+###
+
+DELETE http://localhost:8080/api/accounts/delete
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAyIiwiaWF0IjoxNzYwMDI5NjE2LCJleHAiOjE3NjAwMzMyMTZ9.J5x0PyBTZlqsOrMNSMmo7Ixa58Eu3VVNQyucj3lZOvw
+Content-Length: 59
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "accountNumber": "202501492691",
+  "password": "1112"
+}
+
+<> 2025-10-09T223939.200.json
+
+###
+
+DELETE http://localhost:8080/api/accounts/delete
+Content-Type: application/json
+Content-Length: 59
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "accountNumber": "202501492691",
+  "password": "1112"
+}
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAyIiwiaWF0IjoxNzYwMDI5NjE2LCJleHAiOjE3NjAwMzMyMTZ9.J5x0PyBTZlqsOrMNSMmo7Ixa58Eu3VVNQyucj3lZOvw
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 10000,
+  "userId": 1,
+  "accountType": "SAVINGS",
+  "password": "1112"
+}
+
+<> 2025-10-09T223747.201.json
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzYwMDA3MTU0LCJleHAiOjE3NjAwMTA3NTR9.xMDpDXOTDVMmFKKxSiNGX6yjABR_TSjDn2I0f_Gnljw
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 10000,
+  "userId": 1,
+  "accountType": "SAVINGS",
+  "password": "1112"
+}
+
+###
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+Content-Length: 52
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user002",
+  "password": "user002"
+}
+
+<> 2025-10-09T223656.200.json
+
+###
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+Content-Length: 52
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user001",
+  "password": "user001"
+}
+
+<> 2025-10-09T223640.401.json
+
+###
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+Content-Length: 136
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "name": "userTwo",
+  "username": "user002",
+  "password": "user002",
+  "email": "user002@gmail.com",
+  "phoneNumber": "2202202220"
+}
+
+<> 2025-10-09T223634.201.json
+
+###
+
+GET http://localhost:8080/api/accounts/get/all_accounts
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAyIiwiaWF0IjoxNzYwMDA3MzMyLCJleHAiOjE3NjAwMTA5MzJ9.y8VIIJ09juqOpz4YOdCbGD_jWFJRvnhL4GVa-BJznfc
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+<> 2025-10-09T162713.303.json
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzYwMDA3MTU0LCJleHAiOjE3NjAwMTA3NTR9.xMDpDXOTDVMmFKKxSiNGX6yjABR_TSjDn2I0f_Gnljw
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 10000,
+  "userId": 2,
+  "accountType": "SAVINGS",
+  "password": "1112"
+}
+
+<> 2025-10-09T162550.201.json
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzYwMDA3MTU0LCJleHAiOjE3NjAwMTA3NTR9.xMDpDXOTDVMmFKKxSiNGX6yjABR_TSjDn2I0f_Gnljw
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 10000,
+  "userId": 2,
+  "accountType": "SAVINGS",
+  "password": "1112"
+}
+
+<> 2025-10-09T162549.201.json
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzYwMDA3MTU0LCJleHAiOjE3NjAwMTA3NTR9.xMDpDXOTDVMmFKKxSiNGX6yjABR_TSjDn2I0f_Gnljw
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 50000,
+  "userId": 2,
+  "accountType": "SAVINGS",
+  "password": "1112"
+}
+
+<> 2025-10-09T162544.201.json
+
+###
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+Content-Length: 136
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "name": "userTwo",
+  "username": "user002",
+  "password": "user002",
+  "email": "user002@gmail.com",
+  "phoneNumber": "2202202220"
+}
+
+<> 2025-10-09T162532.201.json
+
+###
+
+GET http://localhost:8080/api/accounts/get/by_account_number
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzYwMDA3MTU0LCJleHAiOjE3NjAwMTA3NTR9.xMDpDXOTDVMmFKKxSiNGX6yjABR_TSjDn2I0f_Gnljw
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+content-length: 59
+
+{
+  "accountNumber": "202500548404",
+  "password": "1112"
+}
+
+<> 2025-10-09T162423.303.json
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzYwMDA3MTU0LCJleHAiOjE3NjAwMTA3NTR9.xMDpDXOTDVMmFKKxSiNGX6yjABR_TSjDn2I0f_Gnljw
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 50000,
+  "userId": 1,
+  "accountType": "SAVINGS",
+  "password": "1112"
+}
+
+<> 2025-10-09T162329.201.json
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzYwMDA3MTU0LCJleHAiOjE3NjAwMTA3NTR9.xMDpDXOTDVMmFKKxSiNGX6yjABR_TSjDn2I0f_Gnljw
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 50000,
+  "userId": 1,
+  "accountType": "SAVINGS",
+  "password": "1112"
+}
+
+<> 2025-10-09T162328.201.json
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzYwMDA3MTU0LCJleHAiOjE3NjAwMTA3NTR9.xMDpDXOTDVMmFKKxSiNGX6yjABR_TSjDn2I0f_Gnljw
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 50000,
+  "userId": 1,
+  "accountType": "SAVINGS",
+  "password": "1112"
+}
+
+<> 2025-10-09T162324.201.json
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyMDg5LCJleHAiOjE3NTk5NTU2ODl9.PIiPS2m0FMdH6ymLY3OD1PFIwWg5Xihmfb1vCypSweQ
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 50000,
+  "userId": 1,
+  "accountType": "SAVINGS",
+  "password": "1112"
+}
+
+###
+
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+Content-Length: 52
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user001",
+  "password": "user001"
+}
+
+<> 2025-10-09T162234.200.json
+
+###
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+Content-Length: 136
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "name": "userOne",
+  "username": "user001",
+  "password": "user001",
+  "email": "user001@gmail.com",
+  "phoneNumber": "1101101110"
+}
+
+<> 2025-10-09T162227.201.json
+
+###
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+Content-Length: 136
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "name": "userOne",
+  "username": "user001",
+  "password": "user001",
+  "email": "user001@gmail.com",
+  "phoneNumber": "1101101110"
+}
+
+<> 2025-10-09T162043.201.json
+
+###
+
+PUT http://localhost:8080/api/user/update/Username
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNzE4LCJleHAiOjE3NTk5NTYzMTh9.CN7ynT_DVc_iQXwt8VbFXQJjLAVM9UwMfUquHinKxaE
+Content-Length: 56
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user0011",
+  "newUsername": "user001"
+}
+
+###
+
+PUT http://localhost:8080/api/user/update/Username
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNzE4LCJleHAiOjE3NTk5NTYzMTh9.CN7ynT_DVc_iQXwt8VbFXQJjLAVM9UwMfUquHinKxaE
+Content-Length: 56
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user001",
+  "newUsername": "user0011"
+}
+
+###
+
+PUT http://localhost:8080/api/user/update/email
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNzE4LCJleHAiOjE3NTk5NTYzMTh9.CN7ynT_DVc_iQXwt8VbFXQJjLAVM9UwMfUquHinKxaE
+Content-Length: 73
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "oldEmail": "user0001@gmail.com",
+  "newEmail": "user001@gmail.com"
+}
+
+###
+
+PUT http://localhost:8080/api/user/update/email
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNzE4LCJleHAiOjE3NTk5NTYzMTh9.CN7ynT_DVc_iQXwt8VbFXQJjLAVM9UwMfUquHinKxaE
+Content-Length: 73
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "oldEmail": "user0001@gmail.com",
+  "newEmail": "user001@gmail.com"
+}
+
+###
+
+PUT http://localhost:8080/api/user/update/Username
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNzE4LCJleHAiOjE3NTk5NTYzMTh9.CN7ynT_DVc_iQXwt8VbFXQJjLAVM9UwMfUquHinKxaE
+Content-Length: 56
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user001",
+  "newUsername": "user0011"
+}
+
+<> 2025-10-09T011549.200.json
+
+###
+
+PUT http://localhost:8080/api/user/update/email
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNzE4LCJleHAiOjE3NTk5NTYzMTh9.CN7ynT_DVc_iQXwt8VbFXQJjLAVM9UwMfUquHinKxaE
+Content-Length: 73
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "oldEmail": "user001@gmail.com",
+  "newEmail": "user0001@gmail.com"
+}
+
+<> 2025-10-09T011536.200.json
+
+###
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+Content-Length: 136
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "name": "userOne",
+  "username": "user001",
+  "password": "user001",
+  "email": "user001@gmail.com",
+  "phoneNumber": "1101101110"
+}
+
+<> 2025-10-09T011518.201.json
+
+###
+
+PUT http://localhost:8080/api/user/update/email
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNTc3LCJleHAiOjE3NTk5NTYxNzd9.5CxqmZ4L_hZmJo988gxpOAmMGfPoZwMVQLLzB6xNkxo
+Content-Length: 73
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "oldEmail": "user001@gmail.com",
+  "newEmail": "user0001@gmail.com"
+}
+
+###
+
+PUT http://localhost:8080/api/user/update/Username
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNTc3LCJleHAiOjE3NTk5NTYxNzd9.5CxqmZ4L_hZmJo988gxpOAmMGfPoZwMVQLLzB6xNkxo
+Content-Length: 56
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user001",
+  "newUsername": "user0011"
+}
+
+<> 2025-10-09T011327.200.json
+
+###
+
+PUT http://localhost:8080/api/user/update/Username
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNTc3LCJleHAiOjE3NTk5NTYxNzd9.5CxqmZ4L_hZmJo988gxpOAmMGfPoZwMVQLLzB6xNkxo
+Content-Length: 57
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user0011",
+  "newUsername": "user0011"
+}
+
+<> 2025-10-09T011319.404.json
+
+###
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+Content-Length: 136
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "name": "userOne",
+  "username": "user001",
+  "password": "user001",
+  "email": "user001@gmail.com",
+  "phoneNumber": "1101101110"
+}
+
+<> 2025-10-09T011257.201.json
+
+###
+
+PUT http://localhost:8080/api/user/update/Username
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyMDg5LCJleHAiOjE3NTk5NTU2ODl9.PIiPS2m0FMdH6ymLY3OD1PFIwWg5Xihmfb1vCypSweQ
+Content-Length: 57
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user0011",
+  "newUsername": "user0011"
+}
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTQ2NjgwLCJleHAiOjE3NTk5NTAyODB9.IZMNTzl_0B2SZs0O_F8cQVXQ9u1vScbz7aFLxbyayQY
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 50000,
+  "userId": 1,
+  "accountType": "SAVINGS",
+  "password": "1112"
+}
+
+###
+
+PUT http://localhost:8080/api/user/update/email
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyMDg5LCJleHAiOjE3NTk5NTU2ODl9.PIiPS2m0FMdH6ymLY3OD1PFIwWg5Xihmfb1vCypSweQ
+Content-Length: 73
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "oldEmail": "user001@gmail.com",
+  "newEmail": "user0001@gmail.com"
+}
+
+###
+
+PUT http://localhost:8080/api/user/update/email
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyMDg5LCJleHAiOjE3NTk5NTU2ODl9.PIiPS2m0FMdH6ymLY3OD1PFIwWg5Xihmfb1vCypSweQ
+Content-Length: 73
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "oldEmail": "user001@gmail.com",
+  "newEmail": "user0001@gmail.com"
+}
+
+###
+
+PUT http://localhost:8080/api/user/update/email
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyMDg5LCJleHAiOjE3NTk5NTU2ODl9.PIiPS2m0FMdH6ymLY3OD1PFIwWg5Xihmfb1vCypSweQ
+Content-Length: 73
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "oldEmail": "user001@gmail.com",
+  "newEmail": "user0001@gmail.com"
+}
+
+###
+
+PUT http://localhost:8080/api/user/update/email
+Content-Type: application/json
+Content-Length: 73
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "oldEmail": "user001@gmail.com",
+  "newEmail": "user0001@gmail.com"
+}
+
+###
+
+PUT http://localhost:8080/api/user/update/email
+Content-Type: application/json
+Content-Length: 73
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "oldEmail": "user001@gmail.com",
+  "newEmail": "user0001@gmail.com"
+}
+
+###
+
+PUT http://localhost:8080/api/user/update/Username
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyMDg5LCJleHAiOjE3NTk5NTU2ODl9.PIiPS2m0FMdH6ymLY3OD1PFIwWg5Xihmfb1vCypSweQ
+Content-Length: 56
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user001",
+  "newUsername": "user0011"
+}
+
+<> 2025-10-09T010742.200.json
+
+###
+
+PUT http://localhost:8080/api/user/update/Username
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTQ0ODcxLCJleHAiOjE3NTk5NDg0NzF9.NCfrr1prSIdFQDSXGR4Os7BDwTrFVq04kd7tt8bVNVk
+Content-Length: 56
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "username": "user001",
+  "newUsername": "user0011"
+}
+
+###
+
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+Content-Length: 136
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "name": "userOne",
+  "username": "user001",
+  "password": "user001",
+  "email": "user001@gmail.com",
+  "phoneNumber": "1101101110"
+}
+
+<> 2025-10-09T010449.201.json
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTQ2NjgwLCJleHAiOjE3NTk5NTAyODB9.IZMNTzl_0B2SZs0O_F8cQVXQ9u1vScbz7aFLxbyayQY
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 50000,
+  "userId": 1,
+  "accountType": "SAVINGS",
+  "password": "1111"
+}
+
+###
+
+GET http://localhost:8080/api/accounts/get/all_accounts
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTQ2NjgwLCJleHAiOjE3NTk5NTAyODB9.IZMNTzl_0B2SZs0O_F8cQVXQ9u1vScbz7aFLxbyayQY
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+<> 2025-10-08T233822.303.json
+
+###
+
+POST http://localhost:8080/api/accounts/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTQ2NjgwLCJleHAiOjE3NTk5NTAyODB9.IZMNTzl_0B2SZs0O_F8cQVXQ9u1vScbz7aFLxbyayQY
+Content-Length: 94
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2025.2.3
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+Cookie: JSESSIONID=C9B26A914AFF0FC5BB284AA1E8FB4CDA
+
+{
+  "initialBalance": 50000,
+  "userId": 1,
+  "accountType": "SAVINGS",
+  "password": "1111"
+}
+
+<> 2025-10-08T233806.201.json
+
+###
+

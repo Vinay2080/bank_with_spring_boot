@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "message": "login successful",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzYwMDA3MTU0LCJleHAiOjE3NjAwMTA3NTR9.xMDpDXOTDVMmFKKxSiNGX6yjABR_TSjDn2I0f_Gnljw"
+  },
+  "localDateTime": "09-10-2025 16:22:34"
+}

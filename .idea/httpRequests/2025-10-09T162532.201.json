@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "message": "user registered successfully ",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAyIiwiaWF0IjoxNzYwMDA3MzMyLCJleHAiOjE3NjAwMTA5MzJ9.y8VIIJ09juqOpz4YOdCbGD_jWFJRvnhL4GVa-BJznfc"
+  },
+  "localDateTime": "09-10-2025 16:25:32"
+}

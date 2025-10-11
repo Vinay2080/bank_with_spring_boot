@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "message": "email updated successfully",
+  "data": {
+    "username": "user001",
+    "email": "user0001@gmail.com"
+  },
+  "localDateTime": "09-10-2025 01:15:36"
+}

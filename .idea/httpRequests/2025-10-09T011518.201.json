@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "message": "user registered successfully ",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMDAxIiwiaWF0IjoxNzU5OTUyNzE4LCJleHAiOjE3NTk5NTYzMTh9.CN7ynT_DVc_iQXwt8VbFXQJjLAVM9UwMfUquHinKxaE",
+    "email": "user001@gmail.com",
+    "username": "user001"
+  },
+  "localDateTime": "09-10-2025 01:15:18"
+}
