@@ -1,7 +1,6 @@
 package org.example.bankwithspringboot.service;
 
-import org.example.bankwithspringboot.dto.request.Authentications.AuthLoginRequest;
-import org.example.bankwithspringboot.dto.request.Authentications.AuthRegisterRequest;
+import org.example.bankwithspringboot.dto.request.Authentications.AuthenticationRequest;
 import org.example.bankwithspringboot.dto.response.Authentications.AuthResponse;
 import org.example.bankwithspringboot.exception.ResourceAlreadyExistsException;
 import org.example.bankwithspringboot.exception.ResourceNotFoundException;
@@ -33,10 +32,7 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    public AuthResponse registerUser(AuthRegisterRequest request){
-        if (userRepository.existsByEmail(request.getEmail())){
-            throw new ResourceAlreadyExistsException("User with given email already exits");
-        }
+    public AuthResponse registerUser(AuthenticationRequest request){
         if (userRepository.findByUsername(request.getUsername()).isPresent()){
             throw new ResourceAlreadyExistsException("User with given username already exits");
         }
@@ -50,7 +46,7 @@ public class AuthenticationService {
         return new AuthResponse(token);
     }
 
-    public AuthResponse LoginUser(AuthLoginRequest request) {
+    public AuthResponse LoginUser(AuthenticationRequest request) {
         try{
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())

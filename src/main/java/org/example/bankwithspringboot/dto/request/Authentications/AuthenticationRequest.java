@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthLoginRequest implements Serializable {
+public class AuthenticationRequest implements Serializable {
     @Pattern(regexp = "^[a-zA-Z][a-zA-Z0-9_]*$", message = "username only consists letters, numbers and '_'")
     @NotBlank(message = "username cannot be blank")
     private String username;

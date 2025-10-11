@@ -3,8 +3,7 @@ package org.example.bankwithspringboot.controller;
 import jakarta.validation.Valid;
 import org.example.bankwithspringboot.dto.apiResponse.ApiResponse;
 import org.example.bankwithspringboot.dto.apiResponse.ResponseUtility;
-import org.example.bankwithspringboot.dto.request.Authentications.AuthLoginRequest;
-import org.example.bankwithspringboot.dto.request.Authentications.AuthRegisterRequest;
+import org.example.bankwithspringboot.dto.request.Authentications.AuthenticationRequest;
 import org.example.bankwithspringboot.dto.response.Authentications.AuthResponse;
 import org.example.bankwithspringboot.service.AuthenticationService;
 import org.springframework.http.HttpStatus;
@@ -25,13 +24,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<AuthResponse>> registerUser(@Valid @RequestBody AuthRegisterRequest request) {
+    public ResponseEntity<ApiResponse<AuthResponse>> registerUser(@Valid @RequestBody AuthenticationRequest request) {
         AuthResponse jwtToken = service.registerUser(request);
         return ResponseUtility.success("user registered successfully ", HttpStatus.CREATED, jwtToken);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<AuthResponse>> loginUser(@Valid @RequestBody AuthLoginRequest request){
+    public ResponseEntity<ApiResponse<AuthResponse>> loginUser(@Valid @RequestBody AuthenticationRequest request){
         AuthResponse jwtToken = service.LoginUser(request);
         return ResponseUtility.success("login successful", HttpStatus.OK, jwtToken);
 

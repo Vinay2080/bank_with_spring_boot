@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank API Flow Tester</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body { background: #f7f9fc; }
+    .card { box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    pre { max-height: 260px; overflow: auto; background: #0b1021; color: #e6edf3; padding: 12px; border-radius: 6px; }
+    .token-badge { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+<body>
+<div class="container py-4">
+  <h1 class="mb-3">Bank API Flow Tester</h1>
+  <p class="text-muted">Follow the tabs from left to right: Auth → Profile → Accounts. This page helps you quickly test your APIs end-to-end.</p>
+
+  <ul class="nav nav-tabs" id="flowTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="auth-tab" data-bs-toggle="tab" data-bs-target="#auth" type="button" role="tab">1) Auth</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">2) Profile</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="accounts-tab" data-bs-toggle="tab" data-bs-target="#accounts" type="button" role="tab">3) Accounts</button>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-3">
+    <!-- AUTH TAB -->
+    <div class="tab-pane fade show active" id="auth" role="tabpanel">
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header bg-primary text-white">Register</div>
+            <div class="card-body">
+              <div class="row g-2">
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Username</label>
+                    <label for="regUsername"></label><input id="regUsername" class="form-control" placeholder="john_doe" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Password</label>
+                    <label for="regPassword"></label><input id="regPassword" type="password" class="form-control" placeholder="••••" />
+                </div>
+              </div>
+              <div class="mt-3 d-flex gap-2">
+                <button class="btn btn-primary" onclick="register()">Register</button>
+                <button class="btn btn-outline-secondary" onclick="clearOutput('authOut')">Clear</button>
+              </div>
+              <div class="mt-3">
+                <pre id="authOut"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header bg-success text-white">Login</div>
+            <div class="card-body">
+              <div class="row g-2">
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Username</label>
+                    <label for="loginUsername"></label><input id="loginUsername" class="form-control" placeholder="john_doe" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Password</label>
+                    <label for="loginPassword"></label><input id="loginPassword" type="password" class="form-control" placeholder="••••" />
+                </div>
+              </div>
+              <div class="mt-3 d-flex gap-2 align-items-center flex-wrap">
+                <button class="btn btn-success" onclick="login()">Login</button>
+                <span class="badge bg-dark token-badge" id="tokenBadge">No token</span>
+                <button class="btn btn-outline-danger btn-sm" onclick="logout()">Logout</button>
+              </div>
+              <div class="mt-3">
+                <pre id="loginOut"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE TAB -->
+    <div class="tab-pane fade" id="profile" role="tabpanel">
+      <div class="row g-3">
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-header bg-secondary text-white">Update Username</div>
+            <div class="card-body">
+              <label class="form-label">Current Username</label>
+                <label for="updUser_username"></label><input id="updUser_username" class="form-control" placeholder="current username" />
+              <label class="form-label mt-2">New Username</label>
+                <label for="updUser_newUsername"></label><input id="updUser_newUsername" class="form-control" placeholder="new username" />
+              <div class="mt-3 d-flex gap-2">
+                <button class="btn btn-secondary" onclick="updateUsername()">Update</button>
+                <button class="btn btn-outline-secondary" onclick="clearOutput('profileOut1')">Clear</button>
+              </div>
+              <pre class="mt-2" id="profileOut1"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-header bg-warning">Update Email</div>
+            <div class="card-body">
+              <label class="form-label">Old Email</label>
+                <label for="updEmail_old"></label><input id="updEmail_old" type="email" class="form-control" placeholder="old@example.com" />
+              <label class="form-label mt-2">New Email</label>
+                <label for="updEmail_new"></label><input id="updEmail_new" type="email" class="form-control" placeholder="new@example.com" />
+              <div class="mt-3 d-flex gap-2">
+                <button class="btn btn-warning" onclick="updateEmail()">Update</button>
+                <button class="btn btn-outline-secondary" onclick="clearOutput('profileOut2')">Clear</button>
+              </div>
+              <pre class="mt-2" id="profileOut2"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-header bg-info">Update Password</div>
+            <div class="card-body">
+              <label class="form-label">Username</label>
+                <label for="updPass_username"></label><input id="updPass_username" class="form-control" placeholder="username" />
+              <div class="row g-2 mt-1">
+                <div class="col-12 col-md-4">
+                    <label for="updPass_old"></label><input id="updPass_old" class="form-control" placeholder="old" />
+                </div>
+                <div class="col-12 col-md-4">
+                    <label for="updPass_new"></label><input id="updPass_new" class="form-control" placeholder="new" />
+                </div>
+                <div class="col-12 col-md-4">
+                    <label for="updPass_new2"></label><input id="updPass_new2" class="form-control" placeholder="confirm" />
+                </div>
+              </div>
+              <div class="mt-3 d-flex gap-2">
+                <button class="btn btn-info" onclick="updatePassword()">Update</button>
+                <button class="btn btn-outline-secondary" onclick="clearOutput('profileOut3')">Clear</button>
+              </div>
+              <pre class="mt-2" id="profileOut3"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-1">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header bg-danger text-white">Delete User</div>
+            <div class="card-body">
+              <div class="row g-2 align-items-end">
+                <div class="col-12 col-md-4">
+                  <label class="form-label">Username</label>
+                    <label for="del_username"></label><input id="del_username" class="form-control" placeholder="username" />
+                </div>
+                <div class="col-12 col-md-4">
+                  <label class="form-label">Password</label>
+                    <label for="del_password"></label><input id="del_password" class="form-control" placeholder="password" />
+                </div>
+                <div class="col-12 col-md-4 d-flex gap-2">
+                  <button class="btn btn-danger" onclick="deleteUser()">Delete</button>
+                  <button class="btn btn-outline-secondary" onclick="clearOutput('deleteOut')">Clear</button>
+                </div>
+              </div>
+              <pre class="mt-2" id="deleteOut"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNTS TAB -->
+    <div class="tab-pane fade" id="accounts" role="tabpanel">
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header bg-success text-white">Create Account</div>
+            <div class="card-body">
+              <div class="row g-2">
+                <div class="col-12 col-md-4">
+                  <label class="form-label">User ID</label>
+                    <label for="acc_userId"></label><input id="acc_userId" type="number" class="form-control" placeholder="e.g. 1" />
+                </div>
+                <div class="col-12 col-md-4">
+                  <label class="form-label">Initial Balance</label>
+                    <label for="acc_initial"></label><input id="acc_initial" type="number" step="0.01" class="form-control" placeholder="0.00" />
+                </div>
+                <div class="col-12 col-md-4">
+                  <label class="form-label">Type</label>
+                    <label for="acc_type"></label><select id="acc_type" class="form-select">
+                    <option>SAVINGS</option>
+                    <option>CURRENT</option>
+                    <option>FIXED_DEPOSIT</option>
+                    <option>RECURRING_DEPOSIT</option>
+                    <option>SALARY</option>
+                    <option>NRI</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row g-2 mt-1">
+                <div class="col-12 col-md-4">
+                  <label class="form-label">4-digit Password</label>
+                    <label for="acc_password"></label><input id="acc_password" class="form-control" placeholder="1234" />
+                </div>
+              </div>
+              <div class="mt-3 d-flex gap-2">
+                <button class="btn btn-success" onclick="createAccount()">Create</button>
+                <button class="btn btn-outline-secondary" onclick="clearOutput('accCreateOut')">Clear</button>
+              </div>
+              <pre class="mt-2" id="accCreateOut"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header bg-primary text-white">My Accounts</div>
+            <div class="card-body">
+              <div class="d-flex gap-2">
+                <button class="btn btn-primary" onclick="getAllAccounts()">Fetch All</button>
+                <button class="btn btn-outline-secondary" onclick="clearOutput('accListOut')">Clear</button>
+              </div>
+              <pre class="mt-2" id="accListOut"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-1">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header bg-info text-white">Get Account by Number</div>
+            <div class="card-body">
+              <div class="row g-2 align-items-end">
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Account Number</label>
+                    <label for="acc_get_number"></label><input id="acc_get_number" class="form-control" placeholder="2025XXXXXXXX" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">4-digit Password</label>
+                    <label for="acc_get_password"></label><input id="acc_get_password" class="form-control" placeholder="1234" />
+                </div>
+              </div>
+              <div class="mt-3 d-flex gap-2">
+                <button class="btn btn-info" onclick="getAccountByNumber()">Get</button>
+                <button class="btn btn-outline-secondary" onclick="clearOutput('accGetOut')">Clear</button>
+              </div>
+              <pre class="mt-2" id="accGetOut"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header bg-danger text-white">Close Account</div>
+            <div class="card-body">
+              <div class="row g-2 align-items-end">
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Account Number</label>
+                    <label for="acc_del_number"></label><input id="acc_del_number" class="form-control" placeholder="2025XXXXXXXX" />
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">4-digit Password</label>
+                    <label for="acc_del_password"></label><input id="acc_del_password" class="form-control" placeholder="1234" />
+                </div>
+              </div>
+              <div class="mt-3 d-flex gap-2">
+                <button class="btn btn-danger" onclick="deleteAccount()">Close</button>
+                <button class="btn btn-outline-secondary" onclick="clearOutput('accDeleteOut')">Clear</button>
+              </div>
+              <pre class="mt-2" id="accDeleteOut"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-1">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header bg-dark text-white">Transfer Money</div>
+            <div class="card-body">
+              <div class="row g-2 align-items-end">
+                <div class="col-12 col-md-3">
+                  <label class="form-label">From Account</label>
+                    <label for="tr_from"></label><input id="tr_from" class="form-control" placeholder="2025XXXXXXXX" />
+                </div>
+                <div class="col-12 col-md-3">
+                  <label class="form-label">To Account</label>
+                    <label for="tr_to"></label><input id="tr_to" class="form-control" placeholder="2025XXXXXXXX" />
+                </div>
+                <div class="col-12 col-md-2">
+                  <label class="form-label">Amount</label>
+                    <label for="tr_amount"></label><input id="tr_amount" type="number" step="0.01" class="form-control" placeholder="0.00" />
+                </div>
+                <div class="col-12 col-md-4">
+                  <label class="form-label">4-digit Password (debit account)</label>
+                    <label for="tr_password"></label><input id="tr_password" class="form-control" placeholder="1234" />
+                </div>
+              </div>
+              <div class="mt-3 d-flex gap-2">
+                <button class="btn btn-dark" onclick="transferMoney()">Transfer</button>
+                <button class="btn btn-outline-secondary" onclick="clearOutput('transferOut')">Clear</button>
+              </div>
+              <pre class="mt-2" id="transferOut"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 small text-muted">
+    Tip: Most endpoints (except /api/auth/*) require an Authorization header. Be sure to login first; the token is stored in your browser's localStorage and attached automatically for the requests below.
+  </div>
+</div>
+
+<script>
+  const API = {
+    base: window.API_BASE_URL || 'http://localhost:8080/api',
+    auth: {
+      register: '/auth/register',
+      login: '/auth/login'
+    },
+    user: {
+      updateUsername: '/user/update/Username',
+      updateEmail: '/user/update/email',
+      updatePassword: '/user/update/password',
+      delete: '/user/delete'
+    },
+    accounts: {
+      create: '/accounts/create',
+      all: '/accounts/get/all_accounts',
+      byNumber: '/accounts/get/by_account_number',
+      delete: '/accounts/delete'
+    },
+    tx: {
+      transfer: '/transactions/transferMoney'
+    }
+  };
+
+  function bearer() {
+    const t = localStorage.getItem('jwt');
+    return t ? { 'Authorization': `Bearer ${t}` } : {};
+  }
+  function setTokenBadge() {
+    const t = localStorage.getItem('jwt');
+    const el = document.getElementById('tokenBadge');
+    if (!el) return;
+    if (t) {
+      const show = t.length > 24 ? t.slice(0, 12) + '…' + t.slice(-8) : t;
+      el.textContent = 'Token: ' + show;
+      el.classList.remove('bg-dark');
+      el.classList.add('bg-success');
+    } else {
+      el.textContent = 'No token';
+      el.classList.add('bg-dark');
+      el.classList.remove('bg-success');
+    }
+  }
+  function out(id, data) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    // If plain string, just show it
+    if (typeof data === 'string') { el.textContent = data; return; }
+
+    // Try to render a friendly view for ApiResponse wrappers
+    try {
+      const isWrapped = data && typeof data === 'object' && 'status' in data && 'body' in data;
+      const body = isWrapped ? data.body : data;
+
+      if (body && typeof body === 'object' && (
+        Object.prototype.hasOwnProperty.call(body, 'success') ||
+        Object.prototype.hasOwnProperty.call(body, 'message') ||
+        Object.prototype.hasOwnProperty.call(body, 'data')
+      )) {
+        const success = body.success === true;
+        const message = body.message || (success ? 'Success' : '');
+        const timestamp = body.localDateTime || '';
+        const payload = body.data;
+
+        function renderAccount(a) {
+          if (!a || typeof a !== 'object') return '';
+          const num = a.accountNumber ?? a.account ?? '';
+          const bal = (a.balance !== undefined && a.balance !== null) ? a.balance : '';
+          const type = a.accountType ?? '';
+          return `
+            <div class="border rounded p-2 mb-2">
+              ${num ? `<div><strong>Account:</strong> ${num}</div>` : ''}
+              ${type ? `<div><strong>Type:</strong> ${type}</div>` : ''}
+              ${bal !== '' ? `<div><strong>Balance:</strong> ${Number(bal).toFixed(2)}</div>` : ''}
+            </div>
+          `;
+        }
+        function renderTransaction(t) {
+          if (!t || typeof t !== 'object') return '';
+          const acc = t.accountDebited ?? t.accountNumber ?? '';
+          const bal = (t.balance !== undefined && t.balance !== null) ? Number(t.balance).toFixed(2) : '';
+          return `
+            <div class="border rounded p-2 mb-2">
+              ${acc ? `<div><strong>Debited From:</strong> ${acc}</div>` : ''}
+              ${bal !== '' ? `<div><strong>New Balance:</strong> ${bal}</div>` : ''}
+            </div>
+          `;
+        }
+
+        let contentHtml = '';
+        if (Array.isArray(payload)) {
+          // Assume list of accounts
+          contentHtml = payload.map(renderAccount).join('');
+        } else if (payload && typeof payload === 'object') {
+          // Heuristics: if it looks like a transaction
+          if ('accountDebited' in payload || ('balance' in payload && !('accountType' in payload))) {
+            contentHtml = renderTransaction(payload);
+          } else {
+            contentHtml = renderAccount(payload);
+          }
+        }
+
+        el.innerHTML = `
+          <div class="alert ${success ? 'alert-success' : 'alert-warning'} py-2 mb-2" role="alert">
+            ${message ? `<strong>${message}</strong>` : ''}
+            ${timestamp ? `<div class="small text-muted">${timestamp}</div>` : ''}
+          </div>
+          ${contentHtml || ''}
+          <details class="mt-2"><summary>Raw response</summary>
+            <pre class="mt-2">${isWrapped ? JSON.stringify(body, null, 2) : JSON.stringify(data, null, 2)}</pre>
+          </details>
+        `;
+        return;
+      }
+    } catch (_) {
+      // Fallback to JSON
+    }
+
+    // Default fallback: pretty JSON
+    el.textContent = JSON.stringify(data, null, 2);
+  }
+  function clearOutput(id) { out(id, ''); }
+
+  function gotoAuthTab(message) {
+    try {
+      const authTab = document.querySelector('#auth-tab');
+      if (authTab) {
+        const tab = new bootstrap.Tab(authTab);
+        tab.show();
+      }
+      if (message) out('loginOut', { status: 'UNAUTHORIZED', message });
+    } catch (_) {
+      if (message) out('loginOut', message);
+    }
+  }
+
+  async function doFetch(path, options = {}) {
+    const url = API.base + path;
+    const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+    try {
+      const res = await fetch(url, { ...options, headers, mode: 'cors' });
+      let body; try { body = await res.json(); } catch (_) { body = await res.text(); }
+      if (res.status === 401 || res.status === 403) {
+        gotoAuthTab('Please login or register to continue.');
+      }
+      return { status: res.status, ok: res.ok, body };
+    } catch (e) {
+      // Likely CORS/network error
+      gotoAuthTab('Network/CORS error. If you opened this file via IDE (port 63342), either enable CORS or open http://localhost:8080/ui.html');
+      return { status: 0, ok: false, body: { error: String(e) } };
+    }
+  }
+
+  // AUTH
+  async function register() {
+    const username = document.getElementById('regUsername').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+    const r = await doFetch(API.auth.register, { method: 'POST', body: JSON.stringify({ username, password }) });
+    out('authOut', r);
+    if (r.ok && r.body && r.body.data && r.body.data.token) {
+      localStorage.setItem('jwt', r.body.data.token);
+      setTokenBadge();
+    }
+  }
+  async function login() {
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+    const r = await doFetch(API.auth.login, { method: 'POST', body: JSON.stringify({ username, password }) });
+    out('loginOut', r);
+    if (r.ok && r.body && r.body.data && r.body.data.token) {
+      localStorage.setItem('jwt', r.body.data.token);
+      setTokenBadge();
+    }
+  }
+  function logout() { localStorage.removeItem('jwt'); setTokenBadge(); }
+
+  // PROFILE
+  async function updateUsername() {
+    const username = document.getElementById('updUser_username').value.trim();
+    const newUsername = document.getElementById('updUser_newUsername').value.trim();
+    const r = await doFetch(API.user.updateUsername, { method: 'PUT', headers: bearer(), body: JSON.stringify({ username, newUsername }) });
+    out('profileOut1', r);
+  }
+  async function updateEmail() {
+    const oldEmail = document.getElementById('updEmail_old').value.trim();
+    const newEmail = document.getElementById('updEmail_new').value.trim();
+    const r = await doFetch(API.user.updateEmail, { method: 'PUT', headers: bearer(), body: JSON.stringify({ oldEmail, newEmail }) });
+    out('profileOut2', r);
+  }
+  async function updatePassword() {
+    const username = document.getElementById('updPass_username').value.trim();
+    const oldPassword = document.getElementById('updPass_old').value.trim();
+    const newPassword = document.getElementById('updPass_new').value.trim();
+    const newPassword2 = document.getElementById('updPass_new2').value.trim();
+    const r = await doFetch(API.user.updatePassword, { method: 'PUT', headers: bearer(), body: JSON.stringify({ username, oldPassword, newPassword, newPassword2 }) });
+    out('profileOut3', r);
+  }
+  async function deleteUser() {
+    const username = document.getElementById('del_username').value.trim();
+    const password = document.getElementById('del_password').value.trim();
+    const r = await doFetch(API.user.delete, { method: 'DELETE', headers: bearer(), body: JSON.stringify({ username, password }) });
+    out('deleteOut', r);
+  }
+
+  // ACCOUNTS
+  async function createAccount() {
+    const userId = Number(document.getElementById('acc_userId').value);
+    const initialBalance = Number(document.getElementById('acc_initial').value);
+    const accountType = document.getElementById('acc_type').value;
+    const password = document.getElementById('acc_password').value.trim();
+    const r = await doFetch(API.accounts.create, { method: 'POST', headers: bearer(), body: JSON.stringify({ userId, initialBalance, accountType, password }) });
+    out('accCreateOut', r);
+  }
+  async function getAllAccounts() {
+    const r = await doFetch(API.accounts.all, { method: 'GET', headers: bearer() });
+    out('accListOut', r);
+  }
+  async function getAccountByNumber() {
+    const accountNumber = document.getElementById('acc_get_number').value.trim();
+    const password = document.getElementById('acc_get_password').value.trim();
+    const r = await doFetch(API.accounts.byNumber, { method: 'GET', headers: { ...bearer() }, body: JSON.stringify({ accountNumber, password }) });
+    out('accGetOut', r);
+  }
+  async function deleteAccount() {
+    const accountNumber = document.getElementById('acc_del_number').value.trim();
+    const password = document.getElementById('acc_del_password').value.trim();
+    const r = await doFetch(API.accounts.delete, { method: 'DELETE', headers: bearer(), body: JSON.stringify({ accountNumber, password }) });
+    out('accDeleteOut', r);
+  }
+
+  // TRANSACTIONS
+  async function transferMoney() {
+    const fromAccountNumber = document.getElementById('tr_from').value.trim();
+    const toAccountNumber = document.getElementById('tr_to').value.trim();
+    const amount = Number(document.getElementById('tr_amount').value);
+    const r = await doFetch(API.tx.transfer, { method: 'POST', headers: bearer(), body: JSON.stringify({ fromAccountNumber, toAccountNumber, amount }) });
+    out('transferOut', r);
+  }
+
+  setTokenBadge();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
