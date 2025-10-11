@@ -38,9 +38,7 @@ public class SecurityConfig {
                                 "/api/auth/**",
                                 "/",
                                 "/index.html",
-                                "/ui.html",
-                                "/static/**",
-                                "/resource.html"
+                                "/ui.html"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
