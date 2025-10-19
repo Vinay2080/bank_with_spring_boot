@@ -1,6 +1,7 @@
 package org.example.bankwithspringboot.service;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.example.bankwithspringboot.dto.request.transactions.TransactionRequest;
 import org.example.bankwithspringboot.dto.response.transaction.TransactionResponse;
 import org.example.bankwithspringboot.exception.ResourceNotFoundException;
@@ -11,15 +12,11 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class TransactionService {
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
-
-    public TransactionService(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
-        this.accountRepository = accountRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Transactional
     public TransactionResponse transferMoney(TransactionRequest request) {

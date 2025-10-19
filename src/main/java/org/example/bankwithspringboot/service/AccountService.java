@@ -1,6 +1,7 @@
 package org.example.bankwithspringboot.service;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.example.bankwithspringboot.dto.request.accounts.AccountCreateRequest;
 import org.example.bankwithspringboot.dto.request.accounts.AccountNumberRequest;
 import org.example.bankwithspringboot.dto.response.accounts.AccountResponse;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Random;
 
+@RequiredArgsConstructor
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
@@ -26,12 +28,6 @@ public class AccountService {
     private final PasswordEncoder passwordEncoder;
     private final AccountMapper accountMapper;
 
-    public AccountService(AccountRepository accountRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, AccountMapper accountMapper) {
-        this.accountRepository = accountRepository;
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.accountMapper = accountMapper;
-    }
 
     @Transactional
     public AccountResponse createAccount(AccountCreateRequest request) {

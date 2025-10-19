@@ -1,5 +1,7 @@
 package org.example.bankwithspringboot.service;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.example.bankwithspringboot.dto.request.Authentications.AuthenticationRequest;
 import org.example.bankwithspringboot.dto.response.Authentications.AuthResponse;
 import org.example.bankwithspringboot.exception.ResourceAlreadyExistsException;
@@ -13,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class AuthenticationService {
 
@@ -21,16 +24,6 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtServices jwtServices;
     private final AuthenticationManager authenticationManager;
-
-    public AuthenticationService(UserRepository userRepository, AuthenticationMapper authenticationMapper,
-                                 PasswordEncoder passwordEncoder, JwtServices jwtServices, AuthenticationManager authenticationManager) {
-
-        this.userRepository = userRepository;
-        this.authenticationMapper = authenticationMapper;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtServices = jwtServices;
-        this.authenticationManager = authenticationManager;
-    }
 
     public AuthResponse registerUser(AuthenticationRequest request){
         if (userRepository.findByUsername(request.getUsername()).isPresent()){

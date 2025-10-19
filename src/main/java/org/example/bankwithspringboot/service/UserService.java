@@ -2,6 +2,7 @@ package org.example.bankwithspringboot.service;
 
 import jakarta.transaction.Transactional;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.example.bankwithspringboot.dto.request.users.UserUpdateEmailRequest;
 import org.example.bankwithspringboot.dto.request.users.UserUpdatePasswordRequest;
 import org.example.bankwithspringboot.dto.request.users.UserUpdateUsernameRequest;
@@ -16,6 +17,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 @Getter
 public class UserService {
@@ -25,11 +27,6 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.userMapper = userMapper;
-    }
 
     @Transactional
     public UserUpdatedResponse updateUsername(UserUpdateUsernameRequest request) {
